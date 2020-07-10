@@ -95,6 +95,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.ProgressPlugin({}),
     new MiniCssExtractPlugin({
       filename: '[name]-[hash].css'
     }),
