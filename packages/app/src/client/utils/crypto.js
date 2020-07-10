@@ -1,0 +1,7 @@
+// 密码加密
+var hash = window.CryptoJS.SHA1('1')
+console.log(hash.toString(window.enc.Base64))
+
+// 请求加密
+// var hash1 = window.HmacSHA1('1', '123')
+// console.log(hash.toString(window.enc.Base64))

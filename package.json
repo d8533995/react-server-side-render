@@ -1,0 +1,33 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/app",
+    "packages/lint",
+    "packages/tools"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint packages",
+    "clean": "lerna clean && yarn workspaces run clean",
+    "dev": "yarn workspace app run dev",
+    "dll": "cross-env NODE_ENV=production yarn workspace @my/tools run build-dll",
+    "build": "cross-env NODE_ENV=production yarn workspace app run build",
+    "deploy": "cross-env NODE_ENV=production yarn workspace app run prd"
+  },
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "rimraf": "^3.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
+}
