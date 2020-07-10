@@ -64,9 +64,4 @@ src/server/config/mock.js
 .fdd/
 stats.json
 Dockerfile
-/packages/mobile-ui/lib/
-/packages/mobile-ui/es/
-/packages/hooks/lib/
-/packages/hooks/es/
-/packages/ddmf-ui/lib/
-/packages/ddmf-ui/es/
+yarn-error.log
