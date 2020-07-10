@@ -1,10 +1,10 @@
 export default [
   {
     path: '/home',
-    component: () => import('./pages/Home'),
+    component: () => import(/* webpackChunkName: "Home" */ './pages/Home'),
   },
   {
     path: '/about',
-    component: () => import('./pages/About'),
+    component: () => import(/* webpackChunkName: "About"  *//* webpackPrefetch: true */  './pages/About'),
   }
 ]

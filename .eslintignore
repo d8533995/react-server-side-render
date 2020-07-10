@@ -1,4 +1,8 @@
-packages/*/lib
 packages/*/es
 packages/*/dist
 packages/*/dll
+routes.js
+libary
+lib
+node_modules
+packages/*/node_modules

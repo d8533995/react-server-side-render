@@ -53,15 +53,5 @@ dump.rdb
 
 .vscode
 
-.stats.json
-
-src/server/config/local
-src/server/config/local.js
-src/server/config/mock
-src/server/config/mock.js
-
 .idea
-.fdd/
-stats.json
-Dockerfile
 yarn-error.log
