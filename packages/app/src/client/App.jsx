@@ -15,6 +15,7 @@ class App extends React.Component {
     Promise.reject(Error('错误'))
   }
 
+
   render () {
     return this.props.children
   }
