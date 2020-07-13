@@ -5,10 +5,11 @@ const getbabelConfig = require('../utils/getbabelConfig')
 
 require('@babel/register')({
   ...getbabelConfig({ isBrowser: false, transformCss: true }),
+  // include: ['src', /node_modules/],
   ignore: [/node_modules/],
   cache: false
 })
 
-process.argv = ['nodemon', path.resolve('src/server')]
+process.argv = ['node', path.resolve('src/server')]
 
 nodeModule.runMain()

@@ -37,7 +37,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js(x)/,
+        test: /\.jsx?/,
+        // include:[],
+        exclude: [],
         use: {
           loader: 'babel-loader',
           options: getbabelConfig({ isBrowser: true, transformCss: false })

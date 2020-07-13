@@ -26,7 +26,12 @@ module.exports = function ({ isBrowser }) {
     presets: [
       [
         '@babel/preset-env',
-        !isBrowser ? { targets: { node: '12' } } : { modules: false }
+        !isBrowser
+          ? { targets: { node: '12' } }
+          : {
+            modules: false,
+            targets: { ie: '9' }
+          }
       ],
       '@babel/preset-react'
     ],

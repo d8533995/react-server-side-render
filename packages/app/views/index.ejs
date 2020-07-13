@@ -4,13 +4,13 @@
 <head>
     <title><%- title %></title>
     <% meta && Object.keys(meta).forEach(function(item){ %>
-        <meta name=<%= item %> content=<%= meta[item] %>>
+        <meta name="<%- item %>" content="<%- meta[item] %>">
     <% }); %>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <meta name="viewport"
         content="width=device-width,initial-scale=1,viewport-fit=cover,minimum-scale=1,maximum-scale=1,user-scalable=0">
     <!-- <meta http-equiv="Content-Security-Policy" content="img-src 'self';"> -->
-    <link rel="stylesheet" type="text/css" href=<%- css %>></link>
+    <link rel="stylesheet" type="text/css" href="<%- css %>" />
 </head>
 
 <body>
@@ -20,8 +20,8 @@
         // https://redux.js.org/recipes/server-rendering/#security-considerations
         window.__PRELOADED_STATE__ = <%- state %>
     </script>
-    <script crossorigin src=<%- dll %>></script>
-    <script crossorigin src=<%- app %>></script>
+    <script crossorigin src="<%- dll %>"></script>
+    <script crossorigin src="<%- app %>"></script>
 </body>
 
 </html>

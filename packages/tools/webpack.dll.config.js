@@ -3,14 +3,14 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    dll: ['react', 'react-dom', 'prop-types', 'core-js', 'regenerator-runtime']
+    dll: ['react', 'react-dom', 'prop-types', 'core-js/stable', 'regenerator-runtime/runtime']
   },
   output: {
     path: path.resolve(__dirname, './dll'),
     filename: '[name]_[hash].dll.js',
     library: '[name]_[hash]'
   },
-  mode: 'production',
+  mode: 'development',
   plugins: [
     new webpack.DllPlugin({
       path: path.resolve(__dirname, './dll/[name]_manifest.json'),

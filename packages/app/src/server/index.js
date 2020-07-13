@@ -5,11 +5,22 @@ const fs = require('fs')
 const { SourceMapConsumer } = require('source-map')
 const { ssr } = require('@my/tools/ssrMiddleware')
 const { outputPath } = require('@my/tools/utils/getOutputConfig')
+const corsMiddlerware = require('./corsMiddlerware')
+const csrfMiddleware = require('./csrfMiddleware')
 
 const app = express()
 const router = express.Router()
 
 app.set('view engine', 'ejs')
+
+router.all('/corsTest', function (req, res, next) {
+  let buffer = ''
+  req.on('data', (chunk) => {
+    buffer += chunk.toString('utf-8')
+    console.log(buffer)
+  })
+  res.status(200).end('123')
+})
 
 router.all('/haha', function (req, res, next) {
   let buffer = ''
@@ -50,7 +61,7 @@ router.get('/error', function (req, res) {
   })
 })
 
-app.use(router)
+app.use('/api', corsMiddlerware, csrfMiddleware, router)
 
 ssr(app)
 

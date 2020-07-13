@@ -36,12 +36,11 @@ exports.ssr = function (app) {
           global.manifest = getManifest()
         }
         const { html, state } = await serverRender(component.default)
-        console.log(state.html)
         res.render('index', {
-          ...state.html,
+          ...(state.html || { title: '', meta: null }),
           html,
           state: JSON.stringify(state).replace(/</g, '\\u003c'), // prevent xss
-          dll: 'https://oss-public.fangdd.com/prod/static/Fhvr-FyYToqXHbp79b8kzRP8dsxi.js',
+          dll: 'https://oss-public.fangdd.com/prod/static/FrGgrHdS2cNjRKW2br3FEHYeZiER.js',
           app: publicPath + (global.manifest['app.js'] || ''),
           css: publicPath + (global.manifest['styles.css'] || '')
         })

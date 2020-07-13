@@ -14,6 +14,11 @@ export default function Home () {
   return <Link to='/about' className={styles.link}>{text}</Link>
 }
 
-Home.inistallData = async (dispatch) => {
+Home.inistallData = async (dispatch = () => {}) => {
   dispatch(actionSetTitle('home'))
+  await Axios({
+    method: 'GET',
+    url: 'http://127.0.0.1:8080/api/corsTest',
+    params: { p: 1 }
+  })
 }
