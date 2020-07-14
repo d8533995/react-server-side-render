@@ -1,12 +1,18 @@
 const whiteList = require('./whiteList')
 
 module.exports = function (req, res, next) {
+  console.log(req.path, req.method)
   const origin = req.header('Origin')
   res.header({
-    'access-control-allow-origin': whiteList.includes(origin) && origin,
-    'access-control-allow-method': 'POST,GET,PUT,OPTOION',
-    'access-control-allow-max-age': 3600,
-    'access-control-allow-credentials': true
+    'Access-Control-Allow-origin': whiteList.includes(origin) && origin,
+    'Access-Control-Allow-method': 'POST,GET,PUT,OPTIONS',
+    'Access-Control-Allow-max-age': 60,
+    'Access-Control-Allow-credentials': true,
+    'Access-Control-Allow-Headers': 'Content-Type'
   })
-  next()
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+  } else {
+    next()
+  }
 }
