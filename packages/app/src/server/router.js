@@ -36,7 +36,7 @@ router.get('/haha', function (req, res) {
     .header({
       'Cache-Control': 'public,max-age=20'
     })
-    .send({ success: true })
+    .send('123')
 })
 
 router.get('/error', function (req, res) {

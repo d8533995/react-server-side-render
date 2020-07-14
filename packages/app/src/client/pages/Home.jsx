@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react'
 import Axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { actionSetTitle } from '../reducers/html'
 
 export default function Home () {
-  const dispatch = useDispatch()
+  const state = useSelector(state => state)
+  console.log(state)
+
+  function submit (e) {
+
+  }
+
   useEffect(() => {
-    Home.inistallData(dispatch);
     (async function () {
       await Axios({
         method: 'POST',
@@ -32,7 +37,7 @@ export default function Home () {
         <br />
         <input name='password' type='password'/>
         <br />
-        <input type='submit' value='提交'/>
+        <input type='submit' value='提交' onClick={submit}/>
       </form>
       <iframe name='formTarget' />
     </>
