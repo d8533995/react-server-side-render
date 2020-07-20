@@ -3,18 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/app",
-    "packages/lint",
-    "packages/tools"
+    "packages/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint packages",
     "clean": "lerna clean && yarn workspaces run clean",
-    "dev": "yarn workspace app run dev",
+    "dev": "cross-env NODE_ENV=development yarn workspace app run dev",
     "dll": "cross-env NODE_ENV=production yarn workspace @my/tools run build-dll",
     "build": "cross-env NODE_ENV=production yarn workspace app run build",
-    "deploy": "cross-env NODE_ENV=production yarn workspace app run prd"
+    "deploy": "cross-env NODE_ENV=production yarn workspace app run prd",
+    "apm": "cross-env NODE_ENV=production yarn workspace @my/apm run build"
   },
   "license": "ISC",
   "publishConfig": {

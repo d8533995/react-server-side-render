@@ -28,7 +28,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  mode: 'development',
+  mode: devMode ? 'development' : 'production',
   devtool: false,
   // devtool: 'nosources-source-map',
   // optimization: {

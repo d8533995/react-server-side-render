@@ -3,16 +3,10 @@ import React from 'react'
 import Axios from 'axios'
 import routes from './routes'
 import reducers from './reducers'
-import './utils/apm'
 
 Axios.defaults.withCredentials = true
 
 class App extends React.Component {
-  componentDidCatch (error, info) {
-    const img = document.createElement('img')
-    img.src = `/error?errorStack=${error.stack.toString()}`
-  }
-
   componentDidMount () {
     // Promise.reject(Error('错误'))
   }

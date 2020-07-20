@@ -24,7 +24,8 @@ exports.ssr = function (app) {
     maxAge: '1d'
   }))
 
-  app.use(async (req, res, next) => {
+  app.get('*', async (req, res, next) => {
+    console.log(req.path)
     try {
       const result = routes.find(i => {
         const parser = new PathToRegex(i.path)
@@ -40,7 +41,7 @@ exports.ssr = function (app) {
           ...(state.html || { title: '', meta: null }),
           html,
           state: JSON.stringify(state).replace(/</g, '\\u003c'), // prevent xss
-          dll: 'https://oss-public.fangdd.com/prod/static/FrGgrHdS2cNjRKW2br3FEHYeZiER.js',
+          dll: 'https://oss-public.fangdd.com/prod/static/Fr0pLCoYOWLkoUvWofw_Ibc43Erz.js',
           app: publicPath + (global.manifest['app.js'] || ''),
           css: publicPath + (global.manifest['styles.css'] || '')
         })
