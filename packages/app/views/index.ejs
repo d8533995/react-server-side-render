@@ -10,16 +10,15 @@
     <meta name="viewport"
         content="width=device-width,initial-scale=1,viewport-fit=cover,minimum-scale=1,maximum-scale=1,user-scalable=0">
     <!-- <meta http-equiv="Content-Security-Policy" content="img-src 'self';"> -->
-    <script crossorigin src='https://oss-public.fangdd.com/prod/static/FkvQjxmAmB1Q8NIR5oG_6AFSKoI3.js'></script>
+    <script src='https://oss-public.fangdd.com/prod/static/FuLA866G7q5qV2g1W0-NYwY0Arev.js'></script>
     <script>
-        if(window.dt){
-            window.dt.init({
-                pid:'hello_fee',
-                target:'http://10.50.255.251:63457'
-            })
-        }
+        // if(window.dt){
+        //    window.dt.init({
+        //         pid: 'hello_fee',
+        //         target: 'https://statis.esf.fangdd.net'
+        //     })
+        // }
     </script>
-    <link rel='stylesheet' href='/123'/>
     <link rel="stylesheet" type="text/css" href="<%- css %>" />
 </head>
 
@@ -30,6 +29,7 @@
         // https://redux.js.org/recipes/server-rendering/#security-considerations
         window.__PRELOADED_STATE__ = <%- state %>
     </script>
+    <script crossorigin src="<%- stylejs %>"></script>
     <script crossorigin src="<%- dll %>"></script>
     <script crossorigin src="<%- app %>"></script>
 </body>

@@ -6,5 +6,9 @@ export default [
   {
     path: '/about',
     component: () => import(/* webpackChunkName: "About"  *//* webpackPrefetch: true */  './pages/About'),
+  },
+  {
+    path: '/monitor/:projectId',
+    component: () => import(/* webpackChunkName: "Monitor" */ './pages/Monitor'),
   }
 ]

@@ -8,6 +8,7 @@
         "clean": "rimraf dist",
         "build": "npm run clean && build-client && build-server",
         "dev": "rimraf dist && run-dev",
+        "build-dll": "rimraf dll && build-dll",
         "prd": "cross-env NODE_ENV=production nodemon dist/server/index.js"
     },
     "author": "",
@@ -15,6 +16,9 @@
     "dependencies": {
         "@my/apm": "1.0.0",
         "axios": "^0.19.2",
+        "moment": "2.27.0",
+        "echarts": "4.8.0",
+        "echarts-for-react": "^2.0.16",
         "crypto-js": "^4.0.0",
         "source-map": "0.7.3",
         "ejs": "^3.1.3",

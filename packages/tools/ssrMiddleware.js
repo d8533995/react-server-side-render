@@ -23,6 +23,9 @@ exports.ssr = function (app) {
   app.use(express.static(path.resolve(outputPath), {
     maxAge: '1d'
   }))
+  app.use(express.static(path.resolve('dll'), {
+    maxAge: '1d'
+  }))
 
   app.get('*', async (req, res, next) => {
     console.log(req.path)
@@ -41,9 +44,10 @@ exports.ssr = function (app) {
           ...(state.html || { title: '', meta: null }),
           html,
           state: JSON.stringify(state).replace(/</g, '\\u003c'), // prevent xss
-          dll: 'https://oss-public.fangdd.com/prod/static/Fr0pLCoYOWLkoUvWofw_Ibc43Erz.js',
+          dll: publicPath + require(path.resolve('dll/dll_manifest.json')).name + '.dll.js',
           app: publicPath + (global.manifest['app.js'] || ''),
-          css: publicPath + (global.manifest['styles.css'] || '')
+          css: publicPath + (global.manifest['styles.css'] || ''),
+          stylejs: publicPath + (global.manifest['styles.js'] || '')
         })
       } else {
         res.status(404).end('404')

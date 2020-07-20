@@ -10,7 +10,7 @@
     "lint": "eslint packages",
     "clean": "lerna clean && yarn workspaces run clean",
     "dev": "cross-env NODE_ENV=development yarn workspace app run dev",
-    "dll": "cross-env NODE_ENV=production yarn workspace @my/tools run build-dll",
+    "dll": "cross-env NODE_ENV=production yarn workspace app run build-dll",
     "build": "cross-env NODE_ENV=production yarn workspace app run build",
     "deploy": "cross-env NODE_ENV=production yarn workspace app run prd",
     "apm": "cross-env NODE_ENV=production yarn workspace @my/apm run build"

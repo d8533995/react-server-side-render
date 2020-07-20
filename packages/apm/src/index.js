@@ -35,7 +35,9 @@ var report = function (errorLogList = []) {
   }
 }
 
-if (typeof window !== 'undefined') {
+log.init = (opts) => {
+  DEFAULT_CONFIG = { ...DEFAULT_CONFIG, ...opts }
+
   init({ report })
 
   window.addEventListener('load', () => {
@@ -78,7 +80,7 @@ const detailAdapter = (code, detail = {}) => {
       const transferField = ruleItem.dft[field]
       // 需要字段转换
       if (transferField) {
-        // 需要字段转换
+      // 需要字段转换
         d[transferField] = detail[field]
         delete detail[field]
       } else {
@@ -124,8 +126,6 @@ log.info = (code, detail, extra) => {
   return log('info', code, detail, extra)
 }
 
-log.init = (opts) => {
-  DEFAULT_CONFIG = { ...DEFAULT_CONFIG, ...opts }
+if (typeof window !== 'undefined') {
+  window.dt = log
 }
-
-window.dt = log

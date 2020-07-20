@@ -9,9 +9,6 @@ import styles from './About.less'
 
 export default function About () {
   useEffect(() => {
-    setTimeout(() => {
-      console.log(a.b)
-    })
   }, [])
 
   return <div className={styles.about}>fdfgrgre</div>
