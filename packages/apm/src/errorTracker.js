@@ -19,13 +19,15 @@ var ERROR_AUDIO = 5
 var ERROR_VIDEO = 6
 // var ERROR_CONSOLE = 7
 // var ERROR_TRY_CATHC = 8
+var ERROR_PROMISE = 9
 
 var LOAD_ERROR_TYPE = {
   SCRIPT: ERROR_SCRIPT,
   LINK: ERROR_STYLE,
   IMG: ERROR_IMAGE,
   AUDIO: ERROR_AUDIO,
-  VIDEO: ERROR_VIDEO
+  VIDEO: ERROR_VIDEO,
+  PROMISE: ERROR_PROMISE
 }
 
 export default function init (opts) {
@@ -45,7 +47,11 @@ export default function init (opts) {
 
   // 监听开发中浏览器中捕获到未处理的Promise错误
   window.addEventListener('unhandledrejection', function (event) {
-    handleError(event)
+    handleError({
+      desc: event.reason.message,
+      stack: event.reason.stack,
+      type: LOAD_ERROR_TYPE.PROMISE
+    })
   }, true)
 }
 

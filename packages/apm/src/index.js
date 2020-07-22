@@ -14,7 +14,8 @@ const JS_TRACKER_ERROR_DISPLAY_MAP = {
   5: 'AUDIO_LOAD_ERROR',
   6: 'VIDEO_LOAD_ERROR',
   7: 'CONSOLE_ERROR',
-  8: 'TRY_CATCH_ERROR'
+  8: 'TRY_CATCH_ERROR',
+  9: 'PROMISE_ERROR'
 }
 
 var report = function (errorLogList = []) {
@@ -129,3 +130,5 @@ log.info = (code, detail, extra) => {
 if (typeof window !== 'undefined') {
   window.dt = log
 }
+
+export default log
