@@ -2,7 +2,6 @@
     "name": "@my/tools",
     "version": "1.0.0",
     "description": "bin",
-    "main": "init.js",
     "bin": {
         "run-dev": "./bin/run-dev.js",
         "build-server": "./bin/build-server.js",
@@ -25,10 +24,11 @@
         "react-loadable": "5.5.0"
     },
     "devDependencies": {
+        "nodemon": "2.0.4",
         "@babel/core": "^7.10.5",
         "@babel/preset-env": "^7.10.4",
         "@babel/preset-react": "^7.10.4",
-        "regenerator-runtime": "0.13.5",
+        "regenerator-runtime": "0.13.7",
         "babel-loader": "^8.1.0",
         "cross-env": "^7.0.2",
         "rimraf": "^3.0.2",

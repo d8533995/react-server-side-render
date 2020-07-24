@@ -2,11 +2,11 @@ const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const middleware = require('webpack-dev-middleware')
-const webpackConfig = require('./webpack.config')
-const { outputPath, publicPath } = require('./utils/getOutputConfig')
+const webpackConfig = require('../configs/webpackConfig')
+const { outputPath, publicPath } = require('../configs/outputConfig')
 const PathToRegex = require('path-to-regex')
-const serverRender = require('./render/server')
-const getManifest = require('./utils/getManifest')
+const serverRender = require('./render')
+const getManifest = require('../utils/getManifest')
 
 const isDev = process.env.NODE_ENV !== 'production'
 

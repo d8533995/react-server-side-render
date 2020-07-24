@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const babelDir = require('@babel/cli/lib/babel/dir').default
-const getbabelConfig = require('../utils/getbabelConfig')
+const babelConfig = require('../configs/babelConfig')
 
 babelDir({
   cliOptions: {
@@ -16,5 +16,5 @@ babelDir({
     includeDotfiles: true,
     skipInitialBuild: null
   },
-  babelOptions: getbabelConfig({ isBrowser: false, transformCss: true })
+  babelOptions: babelConfig({ isBrowser: false, transformCss: true })
 })

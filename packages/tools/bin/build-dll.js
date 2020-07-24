@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const webpack = require('webpack')
-const config = require('../webpack.dll.config')
+const config = require('../configs/DllWebpackConfig')
 
 webpack(config).run((err, stats) => {
   if (stats.hasErrors()) {

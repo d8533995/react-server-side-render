@@ -1,5 +1,5 @@
 const express = require('express')
-const { outputPath } = require('@my/tools/utils/getOutputConfig')
+const { outputPath } = require('@my/tools/configs/outputConfig')
 const path = require('path')
 const fs = require('fs')
 const { SourceMapConsumer } = require('source-map')

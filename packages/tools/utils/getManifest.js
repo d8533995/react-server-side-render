@@ -1,5 +1,5 @@
 const path = require('path')
-const { publicPath, outputPath } = require('./getOutputConfig')
+const { publicPath, outputPath } = require('../configs/outputConfig')
 
 module.exports = function () {
   const manifestPath = publicPath + path.resolve(path.join(outputPath, 'manifest.json'))

@@ -1,6 +1,6 @@
 const express = require('express')
 const session = require('express-session')
-const { ssr } = require('@my/tools/ssrMiddleware')
+const { ssr } = require('@my/tools/node/ssrMiddleware')
 const corsMiddlerware = require('./corsMiddlerware')
 const csrfMiddleware = require('./csrfMiddleware')
 const router = require('./router')

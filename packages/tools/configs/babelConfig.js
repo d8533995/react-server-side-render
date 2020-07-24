@@ -1,5 +1,5 @@
-const getScopedNameGenerator = require('./scopedNameGenerator')
-const { publicPath, fileName } = require('./getOutputConfig')
+const getScopedNameGenerator = require('../utils/scopedNameGenerator')
+const { publicPath, fileName } = require('./outputConfig')
 
 module.exports = function ({ isBrowser }) {
   let plugins

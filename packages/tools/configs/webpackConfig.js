@@ -2,13 +2,15 @@ const path = require('path')
 const webpack = require('webpack')
 const AssetsManifestPlugin = require('webpack-assets-manifest')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const postcssImport = require('postcss-import')
 const postcssPresetEnv = require('postcss-preset-env')
 const postcssNested = require('postcss-nested')
+// 优化\最小化js
 // const TerserPlugin = require('terser-webpack-plugin')
-const getbabelConfig = require('./utils/getbabelConfig')
-const { outputPath, publicPath, outputFileName } = require('./utils/getOutputConfig')
+// 优化\最小化CSS
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const getbabelConfig = require('./babelConfig')
+const { outputPath, publicPath, outputFileName } = require('./outputConfig')
 
 const devMode = process.env.NODE_ENV === 'development'
 
@@ -121,26 +123,26 @@ module.exports = {
     })
   ],
   optimization: {
-    minimizer: [
-      // new TerserPlugin({
-      //   cache: true,
-      //   parallel: true,
-      //   sourceMap: true, // Must be set to true if using source-maps in production
-      //   terserOptions: {
-      //     // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
-      //   }
-      // }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorPluginOptions: {
-          preset: ['default', {
-            discardComments: {
-              removeAll: true
-            },
-            normalizeUrl: false
-          }]
-        }
-      })
-    ],
+    // minimizer: [
+    //   new TerserPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //     sourceMap: true, // Must be set to true if using source-maps in production
+    //     terserOptions: {
+    //       // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+    //     }
+    //   }),
+    //   new OptimizeCSSAssetsPlugin({
+    //     cssProcessorPluginOptions: {
+    //       preset: ['default', {
+    //         discardComments: {
+    //           removeAll: true
+    //         },
+    //         normalizeUrl: false
+    //       }]
+    //     }
+    //   })
+    // ],
     splitChunks: {
       chunks: 'async', // 默认作用于异步chunk，值为all/initial/async/function(chunk),值为function时第一个参数为遍历所有入口chunk时的chunk模块，chunk._modules为chunk所有依赖的模块，通过chunk的名字和所有依赖模块的resource可以自由配置,会抽取所有满足条件chunk的公有模块，以及模块的所有依赖模块，包括css
       cacheGroups: {
