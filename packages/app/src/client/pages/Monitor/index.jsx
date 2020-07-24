@@ -14,6 +14,7 @@ import gwRequest from '../../utils/request'
 export default function Monitor () {
   const [urlList, setUrlList] = useState([])
   const [overview, setOverview] = useState({})
+  const [errorList, setErrorList] = useState([])
   const [startTime, setStartTime] = useState(moment().subtract(30, 'minute').format('YYYY-MM-DD HH:mm'))
   const [endTime, setEndTime] = useState()
   const [url, setUrl] = useState()
@@ -49,6 +50,23 @@ export default function Monitor () {
       })
     }
   }
+
+  function searchErrorList () {
+    gwRequest({
+      path: `/project/${projectId}/api/error/log/list`,
+      qs: {
+        url,
+        error_name_list_json: [
+          '页面报错_JS_RUNTIME_ERROR',
+          '页面报错_SCRIPT_LOAD_ERROR',
+          '页面报错_PROMISE_ERROR'
+        ]
+      }
+    }).then(({ data: { data } }) => {
+      setErrorList(data.list)
+    })
+  }
+
   useEffect(() => {
     gwRequest({
       path: `/project/${projectId}/api/performance/url_list`,
@@ -57,6 +75,7 @@ export default function Monitor () {
       setUrlList(data)
     })
   }, [startTime, endTime])
+
   return (
     <div >
       开始时间
@@ -190,6 +209,32 @@ export default function Monitor () {
           }}
         />
       </div>
+      <input type='button' value='查询错误' onClick={searchErrorList}/>
+      <ul>
+        {errorList.map((i, index) => (
+          <li key={Number(index)}>
+            {moment.unix(i.log_at).format('YYYY-MM-DD HH:mm')}
+            &nbsp;
+            <span style={{ color: 'red' }}>
+              {i.error_name}
+            </span>
+            &nbsp;
+            <span style={{ color: 'green' }}>
+              {i.browser}{i.browser_version}
+            </span>
+            &nbsp;
+            <span style={{ color: 'blue' }}>
+              {i.os}{i.os_version}
+            </span>
+            <p>
+              {i.ext.desc}
+            </p>
+            <p>
+              {i.ext.stack}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

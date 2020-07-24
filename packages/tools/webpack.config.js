@@ -25,14 +25,14 @@ module.exports = {
     publicPath: publicPath
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.json']
   },
   mode: devMode ? 'development' : 'production',
   devtool: false,
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         use: {
           loader: 'babel-loader',
           options: getbabelConfig({ isBrowser: true, transformCss: false })

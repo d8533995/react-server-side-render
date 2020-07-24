@@ -4,14 +4,14 @@ module.exports = {
     apm: path.resolve('./src/index.js')
   },
   output: {
-    filename: 'index.js',
+    filename: 'apm.js',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'production',
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.js$/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -21,6 +21,8 @@ module.exports = {
                 {
                   modules: false,
                   targets: { ie: '9' }
+                  // useBuiltIns: 'usage',
+                  // corejs: '3'
                 }
               ]
             ]

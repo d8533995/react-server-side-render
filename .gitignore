@@ -26,30 +26,9 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-#eclipse project
-.project
-
 build
 
-dist
-
-bower_components
-
-manifest.json
-
-config/local
-config/local.js
-config/mock
-config/mock.js
-
-.DS_Store
-
-.nyc_output
-
-# mate property
-.tm_properties
-
-dump.rdb
+/packages/app/dist
 
 .vscode
 
