@@ -1,4 +1,5 @@
-# ssr
+# react-server-side-render
+react服务端渲染demo
 
 ## start
     $ yarn
