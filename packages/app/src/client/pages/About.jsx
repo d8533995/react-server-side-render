@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styles from './About.less'
-
+import styles1 from './Home.less'
 // ie9 bug
 (function func (a) {
   a = Object.create(null)

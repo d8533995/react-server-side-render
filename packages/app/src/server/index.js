@@ -10,6 +10,8 @@ const app = express()
 app.set('view engine', 'ejs')
 
 app.use(session({
+  resave: false,
+  saveUninitialized: false,
   rolling: true,
   secret: 'keyboard cat',
   cookie: { maxAge: 60000 }

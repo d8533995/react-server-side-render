@@ -13,11 +13,12 @@ module.exports = function ({ isBrowser }) {
           name: `${publicPath}/${fileName}`
         }
       ],
-      ['css-modules-transform',
+      ['@my/babel-plugin-transform-css',
         {
           extensions: ['.css', '.less'],
           camelCase: true,
-          generateScopedName: getScopedNameGenerator()
+          generateScopedName: getScopedNameGenerator(),
+          keepImport: !isBrowser
         }
       ]
     ]

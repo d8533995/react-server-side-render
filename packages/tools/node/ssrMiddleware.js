@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
-const middleware = require('webpack-dev-middleware')
+const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackConfig = require('../configs/webpackConfig')
 const { outputPath, publicPath } = require('../configs/outputConfig')
 const PathToRegex = require('path-to-regex')
@@ -13,16 +13,14 @@ const isDev = process.env.NODE_ENV !== 'production'
 exports.ssr = function (app) {
   const routes = require(path.resolve(path.join(isDev ? 'src' : 'dist', './client/routes'))).default
   if (isDev) {
-    app.use(middleware(
-      webpack({
-        ...webpackConfig
-      }),
-      {}
-    ))
+    const compire = webpack(webpackConfig)
+    app.use(webpackDevMiddleware(compire, {}))
   }
+
   app.use(express.static(path.resolve(outputPath), {
     maxAge: '1d'
   }))
+
   app.use(express.static(path.resolve('dll'), {
     maxAge: '1d'
   }))

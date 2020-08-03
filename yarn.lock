@@ -8870,6 +8870,16 @@ postcss-modules-local-by-default@^3.0.2:
     postcss-selector-parser "^6.0.2"
     postcss-value-parser "^4.0.0"
 
+postcss-modules-local-by-default@^3.0.3:
+  version "3.0.3"
+  resolved "https://npm-private-toolkit.fangdd.net/postcss-modules-local-by-default/-/postcss-modules-local-by-default-3.0.3.tgz#bb14e0cc78279d504dbdcbfd7e0ca28993ffbbb0"
+  integrity sha1-uxTgzHgnnVBNvcv9fgyiiZP/u7A=
+  dependencies:
+    icss-utils "^4.1.1"
+    postcss "^7.0.32"
+    postcss-selector-parser "^6.0.2"
+    postcss-value-parser "^4.1.0"
+
 postcss-modules-resolve-imports@^1.3.0:
   version "1.3.0"
   resolved "https://npm-private-toolkit.fangdd.net/postcss-modules-resolve-imports/-/postcss-modules-resolve-imports-1.3.0.tgz#398d3000b95ae969420cdf4cd83fa8067f1c5eae"

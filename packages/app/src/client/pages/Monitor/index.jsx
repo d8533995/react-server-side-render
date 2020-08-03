@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import ReactEchartsCore from 'echarts-for-react/lib/core'
@@ -7,11 +7,13 @@ import 'echarts/lib/chart/line'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/grid'
+import 'echarts/lib/component/dataZoomInside'
 
 import styles from './index.less'
 import gwRequest from '../../utils/request'
 
 export default function Monitor () {
+  const echartsInstance = useRef()
   const [urlList, setUrlList] = useState([])
   const [overview, setOverview] = useState({})
   const [errorList, setErrorList] = useState([])
@@ -76,6 +78,10 @@ export default function Monitor () {
     })
   }, [startTime, endTime])
 
+  useEffect(() => {
+    window.echartsInstance = echartsInstance.current.getEchartsInstance()
+  }, [])
+
   return (
     <div >
       开始时间
@@ -123,18 +129,13 @@ export default function Monitor () {
       </div>
       <div className={styles.chart}>
         <ReactEchartsCore
+          ref={echartsInstance}
+          notMerge
+          lazyUpdate
           echarts={echarts}
-          notMerge={true}
-          lazyUpdate={true}
           option={{
             tooltip: {
               trigger: 'axis'
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true
             },
             xAxis: {
               type: 'category',
@@ -144,6 +145,11 @@ export default function Monitor () {
             yAxis: {
               type: 'value'
             },
+            dataZoom: [{
+              type: 'inside',
+              start: 0,
+              end: 20
+            }],
             series: [
               {
                 name: 'DNS查询耗时(domainLookupEnd-domainLookupStart)',
