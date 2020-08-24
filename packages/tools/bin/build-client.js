@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
+process.env.NODE_ENV = 'development'
+
 const webpack = require('webpack')
 const config = require('../configs/webpackConfig')
 const rimraf = require('rimraf')
 const { outputPath } = require('../configs/outputConfig')
-
-process.env.NODE_ENV = 'production'
 
 rimraf(outputPath, () => {
   webpack(config).run((err, stats) => {

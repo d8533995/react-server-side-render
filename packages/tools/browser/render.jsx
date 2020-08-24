@@ -1,12 +1,12 @@
 
-// import 'core-js/stable'
+import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import PathToRegex from 'path-to-regex'
+import { match } from 'path-to-regexp'
 
 function Loading () {
   return <div>loading</div>
@@ -21,8 +21,8 @@ delete window.__PRELOADED_STATE__
 export default function getRender ({ App, routes, reducers }) {
   return function (el) {
     const result = routes.find(i => {
-      const parser = new PathToRegex(i.path)
-      return parser.match(window.location.pathname)
+      const matchInstance = match(i.path)
+      return matchInstance(window.location.pathname)
     })
     const store = createStore(combineReducers(reducers), preloadedState)
     result.component().then((data) => {

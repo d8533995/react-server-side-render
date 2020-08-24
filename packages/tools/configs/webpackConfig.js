@@ -33,6 +33,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: getbabelConfig({ isBrowser: true })
@@ -54,7 +55,6 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              localsConvention: 'camelCase',
               modules: {
                 localIdentName: '[hash:base64:5]'
               }
@@ -111,7 +111,7 @@ module.exports = {
   ],
   optimization: {
     minimizer: [
-      new TerserPlugin({
+      !devMode && new TerserPlugin({
         // cache: true,
         // parallel: true,
         sourceMap: true // Must be set to true if using source-maps in production
@@ -119,7 +119,7 @@ module.exports = {
         //   // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
         // }
       }),
-      new OptimizeCSSAssetsPlugin({
+      !devMode && new OptimizeCSSAssetsPlugin({
         // cssProcessorPluginOptions: {
         //   preset: ['default', {
         //     discardComments: {
@@ -129,7 +129,7 @@ module.exports = {
         //   }]
         // }
       })
-    ],
+    ].filter(Boolean),
     splitChunks: {
       cacheGroups: {
         vendor: {

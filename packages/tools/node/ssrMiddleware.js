@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackConfig = require('../configs/webpackConfig')
 const { outputPath, publicPath, babelOutDir } = require('../configs/outputConfig')
-const PathToRegex = require('path-to-regex')
+const { match } = require('path-to-regexp')
 const serverRender = require('./render')
 const getManifest = require('../utils/getManifest')
 
@@ -33,8 +33,9 @@ exports.ssr = function (app) {
   app.get('*', async (req, res, next) => {
     try {
       const result = routes.find(i => {
-        const parser = new PathToRegex(i.path)
-        return parser.match(req.path)
+        const matchInstance = match(i.path)
+        console.log('----', matchInstance(req.path))
+        return matchInstance(req.path)
       })
       if (result) {
         const component = await result.component()
