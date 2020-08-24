@@ -1,5 +1,5 @@
 
-import 'core-js/stable'
+// import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'

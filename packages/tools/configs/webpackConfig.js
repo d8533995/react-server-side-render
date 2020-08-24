@@ -1,14 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
-const AssetsManifestPlugin = require('webpack-assets-manifest')
+const WebpackPluginHash = require('../webpackHashPlugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const postcssImport = require('postcss-import')
-const postcssPresetEnv = require('postcss-preset-env')
-const postcssNested = require('postcss-nested')
+
 // 优化\最小化js
-// const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 // 优化\最小化CSS
-// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const getbabelConfig = require('./babelConfig')
 const { outputPath, publicPath, outputFileName } = require('./outputConfig')
 
@@ -21,9 +19,9 @@ module.exports = {
     app: path.resolve('./src/client/App.jsx')
   },
   output: {
-    filename: '[name]-[hash].js',
-    chunkFilename: '[name]-[hash].js',
-    path: path.resolve(outputPath),
+    filename: outputFileName,
+    chunkFilename: outputFileName,
+    path: outputPath,
     publicPath: publicPath
   },
   resolve: {
@@ -37,7 +35,7 @@ module.exports = {
         test: /\.jsx?$/,
         use: {
           loader: 'babel-loader',
-          options: getbabelConfig({ isBrowser: true, transformCss: false })
+          options: getbabelConfig({ isBrowser: true })
         }
       },
       {
@@ -67,14 +65,9 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [
-                postcssImport(),
-                postcssPresetEnv({
-                  browsers: ['> 0%'],
-                  autoprefixer: {
-                    overrideBrowserslist: ['> 0%']
-                  }
-                }),
-                postcssNested()
+                require('postcss-import'),
+                require('autoprefixer'),
+                require('postcss-nested')
               ]
             }
           },
@@ -88,64 +81,64 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader'
         ]
-      },
-      {
-        test: /\.(jpg|png|svg|gif)/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: outputFileName
-          }
-        }
       }
+      // {
+      //   test: /\.(jpg|png|svg|gif)/,
+      //   use: {
+      //     loader: 'file-loader',
+      //     options: {
+      //       name: outputFileName
+      //     }
+      //   }
+      // }
     ]
   },
   plugins: [
     new webpack.ProgressPlugin({}),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[name]-[hash].css'
+      chunkFilename: '[name].css'
     }),
     new webpack.DllReferencePlugin({
       manifest: require(path.resolve('dll/dll_manifest.json'))
     }),
     new webpack.SourceMapDevToolPlugin({
-      append: false,
-      noSources: true,
-      filename: '[name]-[hash].js.map'
+      append: devMode ? undefined : false,
+      noSources: !devMode,
+      filename: 'sroucemaps/[file].map'
     }),
-    new AssetsManifestPlugin({
-      done (manifest, stats) {
-        global.manifest = manifest.assets
-        // console.log(`The manifest has been written to ${manifest.getOutputPath()}`)
-        // console.log(`${manifest}`)
-      }
-    })
+    new WebpackPluginHash({})
   ],
   optimization: {
-    // minimizer: [
-    //   new TerserPlugin({
-    //     cache: true,
-    //     parallel: true,
-    //     sourceMap: true, // Must be set to true if using source-maps in production
-    //     terserOptions: {
-    //       // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
-    //     }
-    //   }),
-    //   new OptimizeCSSAssetsPlugin({
-    //     cssProcessorPluginOptions: {
-    //       preset: ['default', {
-    //         discardComments: {
-    //           removeAll: true
-    //         },
-    //         normalizeUrl: false
-    //       }]
-    //     }
-    //   })
-    // ],
+    minimizer: [
+      new TerserPlugin({
+        // cache: true,
+        // parallel: true,
+        sourceMap: true // Must be set to true if using source-maps in production
+        // terserOptions: {
+        //   // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+        // }
+      }),
+      new OptimizeCSSAssetsPlugin({
+        // cssProcessorPluginOptions: {
+        //   preset: ['default', {
+        //     discardComments: {
+        //       removeAll: true
+        //     },
+        //     normalizeUrl: false
+        //   }]
+        // }
+      })
+    ],
     splitChunks: {
-      chunks: 'async', // 默认作用于异步chunk，值为all/initial/async/function(chunk),值为function时第一个参数为遍历所有入口chunk时的chunk模块，chunk._modules为chunk所有依赖的模块，通过chunk的名字和所有依赖模块的resource可以自由配置,会抽取所有满足条件chunk的公有模块，以及模块的所有依赖模块，包括css
       cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name: 'vendor',
+          maxSize: 1000000
+        },
+        // Extracting all CSS in a single file
         styles: {
           name: 'styles',
           test: /\.css$|\.less$/,

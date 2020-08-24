@@ -3,21 +3,26 @@ const express = require('express')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackConfig = require('../configs/webpackConfig')
-const { outputPath, publicPath } = require('../configs/outputConfig')
+const { outputPath, publicPath, babelOutDir } = require('../configs/outputConfig')
 const PathToRegex = require('path-to-regex')
 const serverRender = require('./render')
 const getManifest = require('../utils/getManifest')
 
-const isDev = process.env.NODE_ENV !== 'production'
+const isDev = process.env.NODE_ENV === 'development'
 
 exports.ssr = function (app) {
-  const routes = require(path.resolve(path.join(isDev ? 'src' : 'dist', './client/routes'))).default
+  const routes = require(path.resolve(path.join(isDev ? 'src' : babelOutDir, './client/routes'))).default
   if (isDev) {
-    const compire = webpack(webpackConfig)
-    app.use(webpackDevMiddleware(compire, {}))
+    const compiler = webpack(webpackConfig)
+    app.use(webpackDevMiddleware(compiler, {
+      open: true,
+      stats: {
+        colors: true
+      }
+    }))
   }
 
-  app.use(express.static(path.resolve(outputPath), {
+  app.use(express.static(outputPath.replace('[hash]', ''), {
     maxAge: '1d'
   }))
 
@@ -26,7 +31,6 @@ exports.ssr = function (app) {
   }))
 
   app.get('*', async (req, res, next) => {
-    console.log(req.path)
     try {
       const result = routes.find(i => {
         const parser = new PathToRegex(i.path)
@@ -34,18 +38,17 @@ exports.ssr = function (app) {
       })
       if (result) {
         const component = await result.component()
-        if (!global.manifest) {
-          global.manifest = getManifest()
-        }
         const { html, state } = await serverRender(component.default)
+        const manifest = getManifest()
+        const commonPath = publicPath.replace('[hash]', manifest.hash)
         res.render('index', {
           ...(state.html || { title: '', meta: null }),
           html,
           state: JSON.stringify(state).replace(/</g, '\\u003c'), // prevent xss
-          dll: publicPath + require(path.resolve('dll/dll_manifest.json')).name + '.dll.js',
-          app: publicPath + (global.manifest['app.js'] || ''),
-          css: publicPath + (global.manifest['styles.css'] || ''),
-          stylejs: publicPath + (global.manifest['styles.js'] || '')
+          dll: `/${require(path.resolve('dll/dll_manifest.json')).name}.dll.js`,
+          app: `${commonPath}${manifest.app[0]}`,
+          css: `${commonPath}${manifest.styles[0]}`,
+          stylejs: `${commonPath}${manifest.styles[1]}`
         })
       } else {
         res.status(404).end('404')

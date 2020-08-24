@@ -21,4 +21,6 @@ app.use('/api', corsMiddlerware, csrfMiddleware, router)
 
 ssr(app)
 
-app.listen(8080)
+app.listen(8080, () => {
+  console.log('Starting server on http://localhost:8080')
+})

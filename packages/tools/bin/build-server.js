@@ -2,19 +2,22 @@
 
 const babelDir = require('@babel/cli/lib/babel/dir').default
 const babelConfig = require('../configs/babelConfig')
+const { babelOutDir } = require('../configs/outputConfig')
+
+process.env.NODE_ENV = 'production'
 
 babelDir({
   cliOptions: {
-    outDir: 'dist',
+    outDir: babelOutDir,
     filenames: ['./src'],
     extensions: null,
     keepFileExtension: null,
     verbose: true,
     watch: null,
     relative: null,
-    copyFiles: true,
+    copyFiles: false,
     includeDotfiles: true,
     skipInitialBuild: null
   },
-  babelOptions: babelConfig({ isBrowser: false, transformCss: true })
+  babelOptions: babelConfig({ isBrowser: false })
 })

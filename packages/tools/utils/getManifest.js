@@ -1,8 +1,9 @@
 const path = require('path')
-const { publicPath, outputPath } = require('../configs/outputConfig')
+const { babelOutDir } = require('../configs/outputConfig')
 
 module.exports = function () {
-  const manifestPath = publicPath + path.resolve(path.join(outputPath, 'manifest.json'))
+  const manifestPath = path.resolve(`${babelOutDir}/manifest.json`)
+
   let manifest = {}
   try {
     manifest = require(manifestPath)

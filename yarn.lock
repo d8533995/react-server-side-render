@@ -11663,6 +11663,11 @@ webpack-manifest-plugin@^2.2.0:
     object.entries "^1.1.0"
     tapable "^1.0.0"
 
+webpack-plugin-hash@1.0.3:
+  version "1.0.3"
+  resolved "https://npm-private-toolkit.fangdd.net/webpack-plugin-hash/-/webpack-plugin-hash-1.0.3.tgz#179a8e7af34d536505067972b9fa2560089955af"
+  integrity sha1-F5qOevNNU2UFBnlyufolYAiZVa8=
+
 webpack-sources@^1.0.0, webpack-sources@^1.1.0, webpack-sources@^1.3.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1, webpack-sources@^1.4.3:
   version "1.4.3"
   resolved "https://npm-private-toolkit.fangdd.net/webpack-sources/-/webpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"

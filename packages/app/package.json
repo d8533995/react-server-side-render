@@ -5,11 +5,12 @@
     "main": "init.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "clean": "rimraf dist",
+        "clean": "rimraf dist && rimraf .prd",
         "build": "npm run clean && build-client && build-server",
-        "dev": "rimraf dist && run-dev",
+        "build-client": "build-client",
+        "dev": "npm run clean && run-dev",
         "build-dll": "rimraf dll && build-dll",
-        "prd": "cross-env NODE_ENV=production nodemon dist/server/index.js"
+        "prd": "cross-env NODE_ENV=production nodemon .prd/server/index.js"
     },
     "author": "",
     "license": "ISC",
@@ -38,6 +39,7 @@
     "devDependencies": {
         "@my/lint": "1.0.0",
         "@my/tools": "1.0.0",
-        "cross-env": "7.0.2"
+        "cross-env": "7.0.2",
+        "rimraf": "^3.0.2"
     }
 }

@@ -60,7 +60,7 @@ export default function Monitor () {
         url,
         error_name_list_json: [
           '页面报错_JS_RUNTIME_ERROR',
-          '页面报错_SCRIPT_LOAD_ERROR',
+          // '页面报错_SCRIPT_LOAD_ERROR',
           '页面报错_PROMISE_ERROR'
         ]
       }
@@ -145,11 +145,6 @@ export default function Monitor () {
             yAxis: {
               type: 'value'
             },
-            dataZoom: [{
-              type: 'inside',
-              start: 0,
-              end: 20
-            }],
             series: [
               {
                 name: 'DNS查询耗时(domainLookupEnd-domainLookupStart)',
@@ -216,7 +211,7 @@ export default function Monitor () {
         />
       </div>
       <input type='button' value='查询错误' onClick={searchErrorList}/>
-      <ul>
+      <ul className={styles.errorList}>
         {errorList.map((i, index) => (
           <li key={Number(index)}>
             {moment.unix(i.log_at).format('YYYY-MM-DD HH:mm')}

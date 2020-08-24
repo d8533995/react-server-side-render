@@ -4,7 +4,7 @@ module.exports = {
     apm: path.resolve('./src/index.js')
   },
   output: {
-    filename: 'apm.js',
+    filename: 'apm-sdk-V1.js',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'production',

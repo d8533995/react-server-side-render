@@ -1,7 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-
-const devMode = process.env.NODE_ENV === 'development'
+const { dllOutputPath } = require('./outputConfig')
 
 module.exports = {
   entry: {
@@ -15,14 +14,14 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve('dll'),
+    path: dllOutputPath,
     filename: '[name]_[hash].dll.js',
     library: '[name]_[hash]'
   },
-  mode: devMode ? 'development' : 'production',
+  mode: 'production',
   plugins: [
     new webpack.DllPlugin({
-      path: path.resolve('dll/[name]_manifest.json'),
+      path: path.join(dllOutputPath, '[name]_manifest.json'),
       name: '[name]_[hash]'
     })
   ]

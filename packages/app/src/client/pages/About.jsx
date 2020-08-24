@@ -11,5 +11,5 @@ export default function About () {
   useEffect(() => {
   }, [])
 
-  return <div className={styles.about}>fdfgrgre</div>
+  return <div className={styles.about}>fdfgr</div>
 }

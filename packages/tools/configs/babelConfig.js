@@ -18,7 +18,7 @@ module.exports = function ({ isBrowser }) {
           extensions: ['.css', '.less'],
           camelCase: true,
           generateScopedName: getScopedNameGenerator(),
-          keepImport: !isBrowser
+          keepImport: isBrowser
         }
       ]
     ]
@@ -27,12 +27,10 @@ module.exports = function ({ isBrowser }) {
     presets: [
       [
         '@babel/preset-env',
-        !isBrowser
-          ? { targets: { node: '12' } }
-          : {
-            modules: false,
-            targets: { ie: '9' }
-          }
+        isBrowser
+          ? { modules: false, targets: { ie: '9' } }
+          : { targets: { node: '12' }, useBuiltIns: 'usage', corejs: 3 }
+
       ],
       '@babel/preset-react'
     ],

@@ -9,11 +9,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint packages",
     "clean": "lerna clean && yarn workspaces run clean",
-    "dev": "cross-env NODE_ENV=development yarn workspace app run dev",
-    "dll": "cross-env NODE_ENV=production yarn workspace app run build-dll",
-    "build": "cross-env NODE_ENV=production yarn workspace app run build",
-    "deploy": "cross-env NODE_ENV=production yarn workspace app run prd",
-    "apm": "cross-env NODE_ENV=production yarn workspace @my/apm run build"
+    "dev": "yarn workspace app run dev",
+    "dll": "yarn workspace app run build-dll",
+    "build": "yarn workspace app run build",
+    "deploy": "yarn workspace app run prd",
+    "apm": "yarn workspace @my/apm run build"
   },
   "license": "ISC",
   "publishConfig": {

@@ -51,7 +51,7 @@ log.init = (opts) => {
 
     log('perf', 20001, {
       ...times,
-      url: `${window.location.host}${window.location.pathname}`
+      url: `${window.location.host}${window.location.pathname.replace(/\/$/, '')}`
     })
   })
 
