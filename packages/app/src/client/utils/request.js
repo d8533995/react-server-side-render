@@ -7,7 +7,7 @@ if (typeof window !== 'undefined') {
       secretKey: 'SiqYIQHJayVxj2rgdg9u8VHeQxTd1Tnm',
       userSpace: 'bp'
     },
-    env: 'development'
+    env: 'production'
   })
 }
 

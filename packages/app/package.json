@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clean": "rimraf dist && rimraf .prd",
         "build": "npm run clean && build-client && build-server",
-        "build-client": "build-client",
+        "build-client": "build-client --report",
         "dev": "npm run clean && run-dev",
         "build-dll": "rimraf dll && build-dll",
         "prd": "cross-env NODE_ENV=production nodemon .prd/server/index.js"

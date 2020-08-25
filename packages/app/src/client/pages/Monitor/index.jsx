@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
-  Button, Modal, Input, message,
-} from 'antd';
-import { EditOutlined } from '@ant-design/icons';
-import styles from './index.less';
-import gwRequest from '../../utils/request';
+  Button, Modal, Input, message
+} from 'antd'
+import { EditOutlined } from '@ant-design/icons'
+import styles from './index.less'
+import gwRequest from '../../utils/request'
+import { Link } from 'react-router-dom'
 
-export default function List() {
-  const [deleteModal, setDeleteModal] = useState();
-  const [addModal, setAddModal] = useState();
-  const [editModal, setEditModal] = useState();
-  const [list, setList] = useState();
+export default function List () {
+  const [deleteModal, setDeleteModal] = useState()
+  const [addModal, setAddModal] = useState()
+  const [editModal, setEditModal] = useState()
+  const [list, setList] = useState()
 
-  function getList() {
+  function getList () {
     gwRequest({
-      path: '/api/project/item/list',
+      path: '/api/project/item/list'
     }).then((res) => {
-      setList(res.data.data || []);
-    });
+      setList(res.data.data || [])
+    })
   }
 
   useEffect(() => {
-    getList();
-  }, []);
+    getList()
+  }, [])
 
   return (
     <>
@@ -31,150 +32,170 @@ export default function List() {
           <Button
             type="primary"
             onClick={() => setAddModal(true)}
-          >添加楼盘
+          >添加项目
           </Button>
         </div>
         <ul className={styles.list}>
           {list && list.map((item) => (
             <li className={styles.item} key={item.adId}>
-              <img className={styles.img} src={item.coverPic?.split(/\s+/)[0]} alt="" />
-              <h3 className={styles.title}>
-                {item.display_name}
-                <EditOutlined
-                  style={{ marginLeft: 5 }}
-                  onClick={() => setEditModal({ adTitle: item.adTitle, adId: item.adId })}
-                />
-              </h3>
-              <a
-                onClick={() => setDeleteModal(item.adId)}
-                className={styles.delete}
-              >删除
-              </a>
+              <Link to={`/monitor/${item.id}`}>
+                <h3 className={styles.title}>
+                  {item.display_name}
+                  <EditOutlined
+                    style={{ marginLeft: 5 }}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setEditModal({ adTitle: item.display_name, adId: item.id })
+                    }}
+                  />
+                  <div>{item.project_name}</div>
+                </h3>
+                <a
+                  onClick={(e) => { e.preventDefault(); setDeleteModal(item.id) }}
+                  className={styles.delete}
+                >删除
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
       {/* 添加modal */}
       {addModal && (
-      <AddModal
-        onReFresh={getList}
-        onCancel={() => setAddModal(false)}
-      />
+        <AddModal
+          onReFresh={getList}
+          onCancel={() => setAddModal(false)}
+        />
       )}
       {/* 修改modal */}
       {editModal && (
-      <EditModal
-        onReFresh={getList}
-        estateName={editModal.adTitle}
-        adId={editModal.adId}
-        onCancel={() => setEditModal(false)}
-      />
+        <EditModal
+          onReFresh={getList}
+          estateName={editModal.adTitle}
+          adId={editModal.adId}
+          onCancel={() => setEditModal(false)}
+        />
       )}
       {/* 删除modal */}
       {deleteModal && (
-      <DelModal
-        adId={deleteModal}
-        onReFresh={getList}
-        onCancel={() => setDeleteModal(false)}
-      />
+        <DelModal
+          adId={deleteModal}
+          onReFresh={getList}
+          onCancel={() => setDeleteModal(false)}
+        />
       )}
     </>
-  );
+  )
 }
 
-function EditModal({
-  estateName, adId, onCancel, onReFresh,
+function EditModal ({
+  estateName, adId, onCancel, onReFresh
 }) {
-  const [adTitle, setAdTitle] = useState(estateName);
-  function handleSave() {
+  const [displayName, setDisplayName] = useState(estateName)
+  function handleSave () {
     gwRequest({
       method: 'POST',
-      path: `/promotion/${adId}/update`,
+      path: '/api/project/item/update',
       json: {
-        adTitle,
-      },
+        id: adId,
+        display_name: displayName
+      }
     }).then(() => {
-      message.success('修改成功');
-      onReFresh();
-      onCancel();
-    });
+      message.success('修改成功')
+      onReFresh()
+      onCancel()
+    })
   }
   return (
     <Modal
       closable={false}
-      title="修改楼盘名称"
+      title="修改项目名称"
       visible
       onOk={handleSave}
       onCancel={onCancel}
       okText="保存"
       cancelText="取消"
-      okButtonProps={{ disabled: !estateName }}
+      okButtonProps={{ disabled: !displayName }}
     >
       <Input
-        placeholder="楼盘名称"
-        value={adTitle}
-        onChange={(e) => setAdTitle(e.target.value)}
+        placeholder="项目名称"
+        value={displayName}
+        onChange={(e) => setDisplayName(e.target.value)}
       />
     </Modal>
-  );
+  )
 }
 
-function AddModal({ onCancel, onReFresh }) {
-  const [estateName, setEstateName] = useState();
-  function handleAdd() {
+function AddModal ({ onCancel, onReFresh }) {
+  const [displayName, setDisplayName] = useState()
+  const [projectName, setProjectName] = useState()
+  const [desc, setDesc] = useState()
+
+  function handleAdd () {
     gwRequest({
       method: 'POST',
-      path: '/promotion/add',
+      path: '/api/project/item/add',
       json: {
-        adTitle: estateName,
-        coverPic: 'https://oss-public.fangdd.com/prod/static/FrpPJTZBuPp5ZQaH7GQ0QWgCAl0M.jpg',
-        uiConfig: JSON.stringify(defaultConfigJson),
-      },
+        displayName,
+        projectName,
+        cDesc: desc
+      }
     }).then(() => {
-      message.success('添加成功');
-      onReFresh();
-      onCancel();
-    });
+      message.success('添加成功')
+      onReFresh()
+      onCancel()
+    })
   }
   return (
     <Modal
       closable={false}
-      title="添加楼盘"
+      title="添加项目"
       visible
       onOk={handleAdd}
       onCancel={onCancel}
       okText="添加"
       cancelText="取消"
-      okButtonProps={{ disabled: !estateName }}
+      okButtonProps={{ disabled: !displayName || !projectName || !desc }}
     >
       <Input
-        placeholder="楼盘名称"
-        value={estateName}
-        onChange={(e) => setEstateName(e.target.value)}
+        placeholder="名称"
+        value={displayName}
+        onChange={(e) => setDisplayName(e.target.value)}
+      />
+      <br /><br />
+      <Input
+        placeholder="appId"
+        value={projectName}
+        onChange={(e) => setProjectName(e.target.value)}
+      />
+      <br /><br />
+      <Input
+        placeholder="描述"
+        value={desc}
+        onChange={(e) => setDesc(e.target.value)}
       />
     </Modal>
-  );
+  )
 }
 
-function DelModal({ onCancel, onReFresh, adId }) {
-  const [delConfirmValue, setDelConfirmValue] = useState();
-  function handleDelete() {
+function DelModal ({ onCancel, onReFresh, adId }) {
+  const [delConfirmValue, setDelConfirmValue] = useState()
+  function handleDelete () {
     gwRequest({
-      method: 'DELETE',
-      action: 'deletePage',
+      path: '/api/project/item/delete',
       qs: {
-        adId,
-      },
+        adId
+      }
     }).then(() => {
-      message.success('删除成功');
-      onReFresh();
-      onCancel();
-    });
+      message.success('删除成功')
+      onReFresh()
+      onCancel()
+    })
   }
   return (
     <Modal
       visible
-      title="删除楼盘"
+      title="删除项目"
       closable={false}
       onOk={handleDelete}
       onCancel={onCancel}
@@ -185,5 +206,5 @@ function DelModal({ onCancel, onReFresh, adId }) {
       <div>请输入“确认删除”</div>
       <Input value={delConfirmValue} onChange={(e) => setDelConfirmValue(e.target.value)} />
     </Modal>
-  );
+  )
 }
