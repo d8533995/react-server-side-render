@@ -1,4 +1,4 @@
-const getScopedNameGenerator = require('../utils/scopedNameGenerator')
+const scopedNameGenerator = require('../utils/scopedNameGenerator')
 const { publicPath, fileName } = require('./outputConfig')
 
 module.exports = function ({ isBrowser }) {
@@ -31,11 +31,10 @@ module.exports = function ({ isBrowser }) {
           name: `${publicPath}/${fileName}`
         }
       ],
-      !isBrowser && ['@my/babel-plugin-transform-css',
+      ['@my/babel-plugin-transform-css',
         {
           extensions: ['.css', '.less'],
-          camelCase: true,
-          generateScopedName: getScopedNameGenerator(),
+          generateScopedName: scopedNameGenerator(),
           keepImport: isBrowser
         }
       ],
@@ -43,7 +42,7 @@ module.exports = function ({ isBrowser }) {
       // Enable loose mode to use assignment instead of defineProperty
       // See discussion in https://github.com/facebook/create-react-app/issues/4263
       isBrowser && ['@babel/plugin-proposal-class-properties', { loose: true }],
-      // isBrowser && ['@babel/plugin-transform-runtime', { // 目前用不了 node_modules里面的都会编译
+      // isBrowser && ['@babel/plugin-transform-runtime', { // 不能用! node_modules里面的都会编译，导致打包出错
       //   corejs: 3, // default false
       //   regenerator: true, // default true
       //   // @babel/runtime/helpers使用/esm目录下文件

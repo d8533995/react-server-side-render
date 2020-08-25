@@ -7,6 +7,8 @@ module.exports = {
     dll: [
       'react',
       'react-dom',
+      'react-redux',
+      'react-router-dom',
       'regenerator-runtime/runtime',
       'moment'
     ]

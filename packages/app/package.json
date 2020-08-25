@@ -18,6 +18,8 @@
         "@my/apm": "1.0.0",
         "@my/ssr": "1.0.0",
         "@fdd/gateway-request": "^5.1.7",
+        "antd": "4.6.1",
+        "@ant-design/icons": "4.2.2",
         "axios": "^0.20.0",
         "moment": "2.27.0",
         "echarts": "4.8.0",

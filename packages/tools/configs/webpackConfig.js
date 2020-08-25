@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const WebpackPluginHash = require('../webpackHashPlugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const scopedNameGenerator = require('../utils/scopedNameGenerator')
 // 优化\最小化js
 const TerserPlugin = require('terser-webpack-plugin')
 // 优化\最小化CSS
@@ -51,15 +51,7 @@ module.exports = {
               reloadAll: true
             }
           },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: {
-                localIdentName: '[hash:base64:5]'
-              }
-            }
-          },
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
@@ -67,7 +59,8 @@ module.exports = {
               plugins: [
                 require('postcss-import'),
                 require('autoprefixer'),
-                require('postcss-nested')
+                require('postcss-nested'),
+                require('postcss-modules')({ generateScopedName: scopedNameGenerator() })
               ]
             }
           },

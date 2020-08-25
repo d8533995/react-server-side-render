@@ -9,6 +9,10 @@ export default [
   },
   {
     path: '/monitor/:projectId',
+    component: () => import(/* webpackChunkName: "Monitor" */ './pages/Monitor/Detail'),
+  },
+  {
+    path: '/monitor',
     component: () => import(/* webpackChunkName: "Monitor" */ './pages/Monitor'),
   }
 ]

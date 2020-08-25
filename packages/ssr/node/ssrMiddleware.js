@@ -47,9 +47,9 @@ module.exports = function (app) {
           html,
           state: JSON.stringify(state).replace(/</g, '\\u003c'), // prevent xss
           dll: `/${require(path.resolve('dll/dll_manifest.json')).name}.dll.js`,
-          app: `${commonPath}${manifest.app[0]}`,
-          css: `${commonPath}${manifest.styles[0]}`,
-          stylejs: `${commonPath}${manifest.styles[1]}`
+          app: `${commonPath}app.js`,
+          css: `${commonPath}styles.css`,
+          stylejs: `${commonPath}styles.js`
         })
       } else {
         res.status(404).end('404')

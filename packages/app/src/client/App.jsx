@@ -4,6 +4,7 @@ import React from 'react'
 import Axios from 'axios'
 import routes from './routes'
 import reducers from './reducers'
+// import 'antd/dist/antd.css'
 
 log.init({
   pid: 'hello_fee',

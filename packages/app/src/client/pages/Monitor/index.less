@@ -1,20 +1,55 @@
-.chart {
-    width: 100%;
+.wrap {
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    padding: 30px;
 }
 
+.btns {
+    padding: 0 20px;
+}
 
-.times {
-    display: flex;
-    flex-wrap: wrap;
+.list {
+    margin: 0;
+    padding: 0;
+}
 
-    span {
-        flex: 1;
-        min-width: 25%;
+.item {
+    border-radius: 6px;
+    margin: 20px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px;
+    background-color: #ffffff;
+    transition: transform .2s linear;
+
+    &:hover {
+        transform: translate3d(0, -3px, 0);
+        box-shadow: 0 0 6px rgba(0, 0, 0, .1), 0 4px 6px rgba(0, 0, 0, .1);
     }
 }
 
-.errorList {
-    p {
-        white-space: pre-line;
-    }
+.img {
+    display: block;
+    width: 240px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 14px;
+    max-width: 240px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bolder;
+}
+
+.viewData {
+    margin-left: 10px;
+}
+
+.delete {
+    float: right;
+    color: red;
 }
