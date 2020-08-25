@@ -1,6 +1,6 @@
 const express = require('express')
 const session = require('express-session')
-const { ssr } = require('@my/tools/node/ssrMiddleware')
+const ssrMiddleware = require('@my/ssr')
 const corsMiddlerware = require('./corsMiddlerware')
 const csrfMiddleware = require('./csrfMiddleware')
 const router = require('./router')
@@ -19,7 +19,7 @@ app.use(session({
 
 app.use('/api', corsMiddlerware, csrfMiddleware, router)
 
-ssr(app)
+ssrMiddleware(app)
 
 app.listen(8080, () => {
   console.log('Starting server on http://localhost:8080')

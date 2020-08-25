@@ -1,4 +1,4 @@
-import getRender from '@my/tools/browser/render' // 一定要放在顶部
+import getRender from '@my/ssr' // 一定要放在顶部
 import log from '@my/apm/src/index'
 import React from 'react'
 import Axios from 'axios'

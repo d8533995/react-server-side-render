@@ -11,9 +11,10 @@
     "clean": "lerna clean && yarn workspaces run clean",
     "dev": "yarn workspace app run dev",
     "dll": "yarn workspace app run build-dll",
-    "build": "yarn workspace app run build",
     "deploy": "yarn workspace app run prd",
-    "apm": "yarn workspace @my/apm run build"
+    "apm": "yarn workspace @my/apm run build",
+    "ssr-browser": "yarn workspace @my/ssr-browser run build",
+    "build": "yarn workspace app run build"
   },
   "license": "ISC",
   "publishConfig": {

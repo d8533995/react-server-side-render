@@ -1,6 +1,7 @@
-packages/*/es
-packages/*/dist
-packages/*/dll
+es
+dist
+dll
+esm
 routes.js
 libary
 lib

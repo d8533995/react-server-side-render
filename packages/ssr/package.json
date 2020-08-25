@@ -1,0 +1,13 @@
+{
+    "name": "@my/ssr",
+    "version": "1.0.0",
+    "description": "bin",
+    "browser": "esm/index.js",
+    "main": "node/ssrMiddleware.js",
+    "scripts": {
+        "build": "node ./scripts/build.js"
+    },
+    "devDependencies": {
+        "@babel/cli": "7.10.5"
+    }
+}

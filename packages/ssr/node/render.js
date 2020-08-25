@@ -4,7 +4,7 @@ const { Provider } = require('react-redux')
 const ReactDOM = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const { createStore, combineReducers } = require('redux')
-const { babelOutDir } = require('../configs/outputConfig')
+const { babelOutDir } = require('@my/tools/configs/outputConfig')
 
 const isDev = process.env.NODE_ENV !== 'production'
 

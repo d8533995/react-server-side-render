@@ -11,4 +11,8 @@ webpack(config).run((err, stats) => {
       chunks: true
     }))
   }
+  console.log(stats.toString({
+    colors: true,
+    chunks: false
+  }))
 })

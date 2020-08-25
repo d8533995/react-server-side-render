@@ -2,15 +2,15 @@ const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackConfig = require('../configs/webpackConfig')
-const { outputPath, publicPath, babelOutDir } = require('../configs/outputConfig')
+const webpackConfig = require('@my/tools/configs/webpackConfig')
+const { outputPath, publicPath, babelOutDir } = require('@my/tools/configs/outputConfig')
 const { match } = require('path-to-regexp')
 const serverRender = require('./render')
-const getManifest = require('../utils/getManifest')
+const getManifest = require('@my/tools/utils/getManifest')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-exports.ssr = function (app) {
+module.exports = function (app) {
   const routes = require(path.resolve(path.join(isDev ? 'src' : babelOutDir, './client/routes'))).default
   if (isDev) {
     const compiler = webpack(webpackConfig)

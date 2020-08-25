@@ -94,6 +94,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.ProgressPlugin({}),
     new MiniCssExtractPlugin({
       filename: '[name].css',

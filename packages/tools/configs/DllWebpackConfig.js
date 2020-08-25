@@ -7,8 +7,6 @@ module.exports = {
     dll: [
       'react',
       'react-dom',
-      'prop-types',
-      'core-js/stable',
       'regenerator-runtime/runtime',
       'moment'
     ]
@@ -20,6 +18,7 @@ module.exports = {
   },
   mode: 'production',
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
     new webpack.DllPlugin({
       path: path.join(dllOutputPath, '[name]_manifest.json'),
       name: '[name]_[hash]'

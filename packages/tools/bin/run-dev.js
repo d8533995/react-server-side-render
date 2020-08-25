@@ -1,8 +1,14 @@
 #!/usr/bin/env node
-const path = require('path')
-const nodemon = require('nodemon')
-
 process.env.NODE_ENV = 'development'
 
-const main = path.resolve(__dirname, '../node/runDev.js')
-nodemon(main, [])
+const path = require('path')
+const babelConfig = require('../configs/babelConfig')
+
+require('@babel/register')({
+  ...babelConfig({ isBrowser: false, transformCss: true }),
+  // include: ['src', /node_modules/],
+  ignore: [/node_modules/],
+  cache: true
+})
+
+require(path.resolve('src/server'))
