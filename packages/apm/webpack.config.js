@@ -21,8 +21,6 @@ module.exports = {
                 {
                   modules: false,
                   targets: { ie: '9' }
-                  // useBuiltIns: 'usage',
-                  // corejs: '3'
                 }
               ]
             ]

@@ -30,7 +30,7 @@ var LOAD_ERROR_TYPE = {
   PROMISE: ERROR_PROMISE
 }
 
-export default function init (opts) {
+export default function errorTracker (opts) {
   config = { ...config, ...opts }
   // 监听资源加载错误(JavaScript Scource failed to load)
   window.addEventListener('error', function (event) {

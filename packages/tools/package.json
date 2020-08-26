@@ -22,15 +22,16 @@
         "react-router": "5.2.0",
         "react-router-dom": "5.2.0",
         "redux": "4.0.5",
-        "react-redux": "7.2.0",
+        "react-redux": "7.2.1",
         "path-to-regexp": "6.1.0",
-        "react-loadable": "5.5.0"
+        "react-loadable": "5.5.0",
+        "commander": "6.0.0"
     },
     "devDependencies": {
         "fs-extra": "9.0.1",
         "@my/babel-plugin-transform-css": "1.0.0",
         "nodemon": "2.0.4",
-        "@babel/core": "^7.10.5",
+        "@babel/core": "^7.11.4",
         "@babel/preset-env": "^7.11.0",
         "@babel/preset-react": "^7.10.4",
         "regenerator-runtime": "0.13.7",
@@ -63,6 +64,7 @@
         "webpack-dev-middleware": "^3.7.2",
         "webpack-dev-server": "^3.11.0",
         "webpack-assets-manifest": "3.1.1",
+        "webpack-bundle-analyzer": "3.8.0",
         "terser-webpack-plugin": "4.1.0",
         "generic-names": "2.0.1"
     }

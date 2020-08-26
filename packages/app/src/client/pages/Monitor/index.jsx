@@ -45,7 +45,7 @@ export default function List () {
                     style={{ marginLeft: 5 }}
                     onClick={(e) => {
                       e.preventDefault()
-                      setEditModal({ adTitle: item.display_name, adId: item.id })
+                      setEditModal({ adTitle: item.display_name, adId: item.id, projectName: item.project_name, desc: item.c_desc })
                     }}
                   />
                   <div>{item.project_name}</div>
@@ -73,6 +73,8 @@ export default function List () {
           onReFresh={getList}
           estateName={editModal.adTitle}
           adId={editModal.adId}
+          defaultProject={editModal.projectName}
+          defaultDesc={editModal.desc}
           onCancel={() => setEditModal(false)}
         />
       )}
@@ -89,16 +91,20 @@ export default function List () {
 }
 
 function EditModal ({
-  estateName, adId, onCancel, onReFresh
+  estateName, adId, onCancel, onReFresh, defaultProject, defaultDesc
 }) {
   const [displayName, setDisplayName] = useState(estateName)
+  const [projectName, setProjectName] = useState(defaultProject)
+  const [desc, setDesc] = useState(defaultDesc)
   function handleSave () {
     gwRequest({
       method: 'POST',
       path: '/api/project/item/update',
       json: {
         id: adId,
-        display_name: displayName
+        display_name: displayName,
+        project_name: projectName,
+        c_desc: desc
       }
     }).then(() => {
       message.success('修改成功')
@@ -121,6 +127,18 @@ function EditModal ({
         placeholder="项目名称"
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
+      />
+      <br /><br />
+      <Input
+        placeholder="appId"
+        value={projectName}
+        onChange={(e) => setProjectName(e.target.value)}
+      />
+      <br /><br />
+      <Input
+        placeholder="描述"
+        value={desc}
+        onChange={(e) => setDesc(e.target.value)}
       />
     </Modal>
   )
@@ -184,7 +202,7 @@ function DelModal ({ onCancel, onReFresh, adId }) {
     gwRequest({
       path: '/api/project/item/delete',
       qs: {
-        adId
+        id: adId
       }
     }).then(() => {
       message.success('删除成功')

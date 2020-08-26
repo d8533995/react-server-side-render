@@ -42,11 +42,11 @@ module.exports = function ({ isBrowser }) {
       // Enable loose mode to use assignment instead of defineProperty
       // See discussion in https://github.com/facebook/create-react-app/issues/4263
       isBrowser && ['@babel/plugin-proposal-class-properties', { loose: true }],
-      // isBrowser && ['@babel/plugin-transform-runtime', { // 不能用! node_modules里面的都会编译，导致打包出错
+      // isBrowser && ['@babel/plugin-transform-runtime', { // webpack不能用! node_modules里面的都会编译，导致打包出错
       //   corejs: 3, // default false
-      //   regenerator: true, // default true
+      //   regenerator: false // default true
       //   // @babel/runtime/helpers使用/esm目录下文件
-      //   useESModules: true
+      //   // useESModules: true
       // }],
       !isDevelopment && [
         'babel-plugin-transform-react-remove-prop-types',

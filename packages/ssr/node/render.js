@@ -8,11 +8,11 @@ const { babelOutDir } = require('@my/tools/configs/outputConfig')
 
 const isDev = process.env.NODE_ENV !== 'production'
 
-module.exports = async function serverRender (component) {
+module.exports = async function serverRender (component, matchParams) {
   const reducers = require(path.resolve(path.join(isDev ? 'src' : babelOutDir, './client/reducers'))).default
   const store = createStore(combineReducers(reducers))
   if (typeof component.inistallData === 'function') {
-    await component.inistallData(store.dispatch)
+    await component.inistallData(store.dispatch, matchParams)
   }
   const state = store.getState()
   const SSR = React.createElement(Provider, { store },

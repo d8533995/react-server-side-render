@@ -1,9 +1,11 @@
 import rule from './rule'
-import init from './errorTracker'
+import errorTracker from './errorTracker'
 
 let DEFAULT_CONFIG = {
   target: 'http://localhost:63457',
-  pid: ''
+  pid: '',
+  performance: true, // 页面载入性能, 默认为true
+  js_error: true //  是否监控页面报错信息, 默认为true
 }
 
 const JS_TRACKER_ERROR_DISPLAY_MAP = {
@@ -38,22 +40,24 @@ var report = function (errorLogList = []) {
 
 log.init = (opts) => {
   DEFAULT_CONFIG = { ...DEFAULT_CONFIG, ...opts }
+  if (DEFAULT_CONFIG.js_error) {
+    errorTracker({ report })
+  }
+  if (DEFAULT_CONFIG.performance) {
+    window.addEventListener('load', () => {
+      const { performance } = window
+      if (!performance) {
+        console.log('你的浏览器不支持 performance 接口')
+        return
+      }
+      const times = performance.timing.toJSON()
 
-  init({ report })
-
-  window.addEventListener('load', () => {
-    const { performance } = window
-    if (!performance) {
-      console.log('你的浏览器不支持 performance 接口')
-      return
-    }
-    const times = performance.timing.toJSON()
-
-    log('perf', 20001, {
-      ...times,
-      url: `${window.location.host}${window.location.pathname.replace(/\/$/, '')}`
+      log('perf', 20001, {
+        ...times,
+        url: `${window.location.host}${window.location.pathname.replace(/\/$/, '')}`
+      })
     })
-  })
+  }
 
   const lastTime = Date.now()
   window.addEventListener('beforeunload', () => {

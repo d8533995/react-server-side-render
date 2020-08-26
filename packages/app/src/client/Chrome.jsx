@@ -1,4 +1,3 @@
-import 'core-js/stable'
 import React from 'react'
 import PropTypes from 'prop-types'
 

@@ -60,7 +60,10 @@ module.exports = {
                 require('postcss-import'),
                 require('autoprefixer'),
                 require('postcss-nested'),
-                require('postcss-modules')({ generateScopedName: scopedNameGenerator() })
+                require('postcss-modules')({
+                  getJSON: () => {},
+                  generateScopedName: scopedNameGenerator()
+                })
               ]
             }
           },
