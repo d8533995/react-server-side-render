@@ -57,9 +57,9 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [
-                require('postcss-import'),
-                require('autoprefixer'),
-                require('postcss-nested'),
+                require('postcss-import')(),
+                require('autoprefixer')(),
+                require('postcss-nested')(),
                 require('postcss-modules')({
                   getJSON: () => {},
                   generateScopedName: scopedNameGenerator()

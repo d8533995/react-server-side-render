@@ -1313,14 +1313,14 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@fdd/gateway-request@^5.1.7":
-  version "5.1.7"
-  resolved "https://npm-private-toolkit.fangdd.net/@fdd%2fgateway-request/-/gateway-request-5.1.7.tgz#006abf83cfe76b884ace0693f1b2a32a1460988d"
-  integrity sha512-A0gZM0Os5OhoqArsIyrCF8pn8+Sf5SVQrwMWB3d9ZjM503U9s/xfHqcpCKzeoL0GVIuz0FhzaZ0GXSMmUqYdDw==
+"@fdd/gateway-request@^5.1.8-beta6":
+  version "5.1.8-beta6"
+  resolved "https://npm-private-toolkit.fangdd.net/@fdd%2fgateway-request/-/gateway-request-5.1.8-beta6.tgz#a76b991a6e44012d0cb5f0ecb83b81d9e5670e8a"
+  integrity sha512-XXJCYG3mcrnNTBiNX/9KdpgH8BsDhl+yof4ewcII3HqE6Hmk2QykF7AiJc8Kf8ZmvPBf1S3ndlrBploXRsAGXQ==
   dependencies:
-    axios "^0.19.2"
+    axios "^0.20.0"
     crypto-js "^4.0.0"
-    js-base64 "^2.5.2"
+    js-base64 "^3.4.5"
     qs "^6.9.4"
 
 "@lerna/add@3.21.0":
@@ -2578,10 +2578,10 @@ ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antd@4.6.1:
-  version "4.6.1"
-  resolved "https://npm-private-toolkit.fangdd.net/antd/-/antd-4.6.1.tgz#d204215d3d00a3ac51a2e93ec2ee1a49adbdb705"
-  integrity sha1-0gQhXT0Ao6xRouk+wu4aSa29twU=
+antd@4.6.2:
+  version "4.6.2"
+  resolved "https://npm-private-toolkit.fangdd.net/antd/-/antd-4.6.2.tgz#c3a8fda7f7c60aa3d3e8ed356bef61902ed3d1ad"
+  integrity sha1-w6j9p/fGCqPT6O01a+9hkC7T0a0=
   dependencies:
     "@ant-design/colors" "^4.0.5"
     "@ant-design/css-animation" "^1.7.2"
@@ -2625,8 +2625,8 @@ antd@4.6.1:
     rc-tree "~3.9.0"
     rc-tree-select "~4.1.1"
     rc-trigger "~4.4.0"
-    rc-upload "~3.2.0"
-    rc-util "^5.0.1"
+    rc-upload "~3.2.1"
+    rc-util "^5.1.0"
     scroll-into-view-if-needed "^2.2.25"
     warning "^4.0.3"
 
@@ -2887,13 +2887,6 @@ aws4@^1.8.0:
   version "1.10.0"
   resolved "https://npm-private-toolkit.fangdd.net/aws4/-/aws4-1.10.0.tgz#a17b3a8ea811060e74d47d306122400ad4497ae2"
   integrity sha1-oXs6jqgRBg501H0wYSJACtRJeuI=
-
-axios@^0.19.2:
-  version "0.19.2"
-  resolved "https://r.cnpmjs.org/axios/download/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
-  integrity sha1-PqNsXYgY0NX4qKl6bTa4bNwAyyc=
-  dependencies:
-    follow-redirects "1.5.10"
 
 axios@^0.20.0:
   version "0.20.0"
@@ -4381,7 +4374,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@3.1.0, debug@=3.1.0:
+debug@3.1.0:
   version "3.1.0"
   resolved "https://npm-private-toolkit.fangdd.net/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
@@ -4763,12 +4756,12 @@ echarts-for-react@^2.0.16:
     fast-deep-equal "^2.0.1"
     size-sensor "^1.0.0"
 
-echarts@4.8.0:
-  version "4.8.0"
-  resolved "https://npm-private-toolkit.fangdd.net/echarts/-/echarts-4.8.0.tgz#b2c1cfb9229b13d368ee104fc8eea600b574d4c4"
-  integrity sha1-ssHPuSKbE9No7hBPyO6mALV01MQ=
+echarts@4.9.0:
+  version "4.9.0"
+  resolved "https://npm-private-toolkit.fangdd.net/echarts/-/echarts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
+  integrity sha1-qbm6oD8Doqcx5jQMVb77V6nhNH0=
   dependencies:
-    zrender "4.3.1"
+    zrender "4.3.2"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -5548,13 +5541,6 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
-
-follow-redirects@1.5.10:
-  version "1.5.10"
-  resolved "https://npm-private-toolkit.fangdd.net/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
-  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
-  dependencies:
-    debug "=3.1.0"
 
 follow-redirects@^1.0.0:
   version "1.12.1"
@@ -6993,10 +6979,10 @@ jest-worker@^26.3.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-js-base64@^2.5.2:
-  version "2.6.3"
-  resolved "https://npm-private-toolkit.fangdd.net/js-base64/-/js-base64-2.6.3.tgz#7afdb9b57aa7717e15d370b66e8f36a9cb835dc3"
-  integrity sha1-ev25tXqncX4V03C2bo82qcuDXcM=
+js-base64@^3.4.5:
+  version "3.4.5"
+  resolved "https://npm-private-toolkit.fangdd.net/js-base64/-/js-base64-3.4.5.tgz#6d1921e65a172cfd924604e1416dfaff45752c3e"
+  integrity sha1-bRkh5loXLP2SRgThQW36/0V1LD4=
 
 js-cookie@2.2.1:
   version "2.2.1"
@@ -9837,6 +9823,15 @@ qs@~6.5.2:
   resolved "https://npm-private-toolkit.fangdd.net/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
+query-string@6.13.1:
+  version "6.13.1"
+  resolved "https://npm-private-toolkit.fangdd.net/query-string/-/query-string-6.13.1.tgz#d913ccfce3b4b3a713989fe6d39466d92e71ccad"
+  integrity sha1-2RPM/OO0s6cTmJ/m05Rm2S5xzK0=
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
 query-string@^4.1.0:
   version "4.3.4"
   resolved "https://npm-private-toolkit.fangdd.net/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -10231,10 +10226,10 @@ rc-trigger@^4.0.0, rc-trigger@^4.2.1, rc-trigger@^4.3.0, rc-trigger@^4.4.0, rc-t
     rc-motion "^1.0.0"
     rc-util "^5.0.1"
 
-rc-upload@~3.2.0:
-  version "3.2.0"
-  resolved "https://npm-private-toolkit.fangdd.net/rc-upload/-/rc-upload-3.2.0.tgz#251fc3c9105902e808600a414f368f285d63bfba"
-  integrity sha1-JR/DyRBZAugIYApBTzaPKF1jv7o=
+rc-upload@~3.2.1:
+  version "3.2.1"
+  resolved "https://npm-private-toolkit.fangdd.net/rc-upload/-/rc-upload-3.2.1.tgz#2bd6af19061be748736624f553a67d04a49c0deb"
+  integrity sha1-K9avGQYb50hzZiT1U6Z9BKScDes=
   dependencies:
     classnames "^2.2.5"
 
@@ -10242,6 +10237,14 @@ rc-util@^5.0.0, rc-util@^5.0.1, rc-util@^5.0.4, rc-util@^5.0.5, rc-util@^5.0.6, 
   version "5.0.7"
   resolved "https://npm-private-toolkit.fangdd.net/rc-util/-/rc-util-5.0.7.tgz#125c3a2fd917803afbb685f9eadc789b085dc813"
   integrity sha1-Elw6L9kXgDr7toX56tx4mwhdyBM=
+  dependencies:
+    react-is "^16.12.0"
+    shallowequal "^1.1.0"
+
+rc-util@^5.1.0:
+  version "5.2.0"
+  resolved "https://npm-private-toolkit.fangdd.net/rc-util/-/rc-util-5.2.0.tgz#c3fb107631c2cc9dbe3822128ba76819b3f84948"
+  integrity sha1-w/sQdjHCzJ2+OCISi6doGbP4SUg=
   dependencies:
     react-is "^16.12.0"
     shallowequal "^1.1.0"
@@ -11316,6 +11319,11 @@ spdy@^4.0.2:
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
 
+split-on-first@^1.0.0:
+  version "1.1.0"
+  resolved "https://npm-private-toolkit.fangdd.net/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
+  integrity sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==
+
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"
   resolved "https://npm-private-toolkit.fangdd.net/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
@@ -11425,6 +11433,11 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://npm-private-toolkit.fangdd.net/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   integrity sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "https://npm-private-toolkit.fangdd.net/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
+  integrity sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
 
 string-convert@^0.2.0:
   version "0.2.1"
@@ -12818,7 +12831,7 @@ yargs@^14.2.2:
     y18n "^4.0.0"
     yargs-parser "^15.0.1"
 
-zrender@4.3.1:
-  version "4.3.1"
-  resolved "https://npm-private-toolkit.fangdd.net/zrender/-/zrender-4.3.1.tgz#baf8aa6dc8187a2f819692d7d5f9bedfa2b90fa3"
-  integrity sha1-uviqbcgYei+BlpLX1fm+36K5D6M=
+zrender@4.3.2:
+  version "4.3.2"
+  resolved "https://npm-private-toolkit.fangdd.net/zrender/-/zrender-4.3.2.tgz#ec7432f9415c82c73584b6b7b8c47e1b016209c6"
+  integrity sha1-7HQy+UFcgsc1hLa3uMR+GwFiCcY=

@@ -9,6 +9,7 @@ import styles1 from './Home.less'
 
 export default function About () {
   useEffect(() => {
+    c.a = 1
   }, [])
 
   return <div className={styles.about}>fdfgr</div>

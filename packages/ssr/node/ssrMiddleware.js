@@ -45,7 +45,7 @@ module.exports = function (app) {
 
       if (result) {
         const component = await result.component()
-        const { html, state } = await serverRender(component.default, matchParams)
+        const { html, state } = await serverRender(component.default, matchParams, req)
         const manifest = getManifest()
         const commonPath = publicPath.replace('[hash]', manifest.hash)
         res.render('index', {

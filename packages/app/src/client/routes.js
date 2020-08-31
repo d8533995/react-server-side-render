@@ -14,5 +14,9 @@ export default [
   {
     path: '/monitor',
     component: () => import(/* webpackChunkName: "Monitor" */ './pages/Monitor'),
-  }
+  },
+  {
+    path: '/error/:projectId',
+    component: () => import(/* webpackChunkName: "ErrorList" */ './pages/Monitor/ErrorDetail'),
+  },
 ]
