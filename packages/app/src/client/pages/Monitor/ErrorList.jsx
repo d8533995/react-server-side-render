@@ -44,7 +44,6 @@ export default function ErrorList () {
   const [loading,setLoading]=useState(false)
   const [erorrType,setErrorType]= useState([
     '页面报错_JS_RUNTIME_ERROR',
-    '页面报错_SCRIPT_LOAD_ERROR',
     '页面报错_PROMISE_ERROR'
   ])
   const [errorList, setErrorList] = useState([])

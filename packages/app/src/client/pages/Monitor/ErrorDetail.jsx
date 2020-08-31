@@ -29,9 +29,9 @@ export default function ErrorList () {
     <div style={{padding: 20}}>
       <div>
         <div>异常消息</div>
-        <h2>{errorList[0]?.desc.split(/at|@/)[0]}</h2>
+        <h2>{errorList[0]?.desc.split(/\sat\s|@/)[0]}</h2>
         <div>原因</div>
-        <h4>{errorList[0]?.desc.split(/at|@/)[1]}</h4>
+        <h4>{errorList[0]?.desc.split(/\sat\s|@/)[1]}</h4>
       </div>
       <Table
         bordered

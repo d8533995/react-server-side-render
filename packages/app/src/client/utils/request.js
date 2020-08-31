@@ -1,5 +1,5 @@
 import gatewayRequest from '@fdd/gateway-request'
-import Axios from 'axios'
+// import Axios from 'axios'
 
 if (typeof window !== 'undefined') {
   gatewayRequest.init({
