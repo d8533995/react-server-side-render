@@ -53,7 +53,8 @@ module.exports = function ({ isBrowser }) {
         {
           removeImport: true
         }
-      ]
+      ],
+      isDevelopment && 'react-hot-loader/babel'
     ].filter(Boolean)
   }
 }

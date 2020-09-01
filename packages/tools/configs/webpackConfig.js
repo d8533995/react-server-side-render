@@ -16,7 +16,10 @@ global.isBrowser = true
 
 module.exports = {
   entry: {
-    app: path.resolve('./src/client/App.jsx')
+    app: [
+      devMode && 'webpack-hot-middleware/client',
+      path.resolve('./src/client/App.jsx')
+    ].filter(Boolean)
   },
   output: {
     filename: outputFileName,
@@ -90,6 +93,7 @@ module.exports = {
     ]
   },
   plugins: [
+    devMode && new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.ProgressPlugin({}),
     new MiniCssExtractPlugin({
@@ -105,7 +109,7 @@ module.exports = {
       filename: 'sroucemaps/[file].map'
     }),
     new WebpackPluginHash({})
-  ],
+  ].filter(Boolean),
   optimization: {
     minimizer: [
       !devMode && new TerserPlugin({

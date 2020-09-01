@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { hot } from 'react-hot-loader'
 import {
   Button, Modal, Input, message
 } from 'antd'
@@ -7,7 +8,8 @@ import styles from './index.less'
 import gwRequest from '../../utils/request'
 import { Link } from 'react-router-dom'
 
-export default function List () {
+export default hot(module)(List)
+function List () {
   const [deleteModal, setDeleteModal] = useState()
   const [addModal, setAddModal] = useState()
   const [editModal, setEditModal] = useState()

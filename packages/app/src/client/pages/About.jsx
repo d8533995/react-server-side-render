@@ -12,5 +12,5 @@ export default function About () {
     c.a = 1
   }, [])
 
-  return <div className={styles.about}>fdfgr</div>
+  return <div className={styles.about}>fdfgrsad</div>
 }

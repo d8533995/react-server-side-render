@@ -17,7 +17,7 @@
     "dependencies": {
         "@my/apm": "1.0.0",
         "@my/ssr": "1.0.0",
-        "@fdd/gateway-request": "^5.1.8-beta6",
+        "@fdd/gateway-request": "^5.1.8",
         "antd": "4.6.2",
         "@ant-design/icons": "4.2.2",
         "axios": "^0.20.0",
@@ -26,7 +26,6 @@
         "query-string": "6.13.1",
         "echarts-for-react": "^2.0.16",
         "crypto-js": "^4.0.0",
-        "source-map": "0.7.3",
         "ejs": "^3.1.5",
         "express": "^4.17.1",
         "express-session": "1.17.1",

@@ -2,7 +2,6 @@ const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const { match } = require('path-to-regexp')
-const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackConfig = require('@my/tools/configs/webpackConfig')
 const { outputPath, publicPath, babelOutDir } = require('@my/tools/configs/outputConfig')
 const getManifest = require('@my/tools/utils/getManifest')
@@ -15,12 +14,13 @@ module.exports = function (app) {
   const routes = require(path.resolve(path.join(isDev ? 'src' : babelOutDir, './client/routes'))).default
   if (isDev) {
     const compiler = webpack(webpackConfig)
-    app.use(webpackDevMiddleware(compiler, {
+    app.use(require('webpack-dev-middleware')(compiler, {
       open: true,
       stats: {
         colors: true
       }
     }))
+    app.use(require('webpack-hot-middleware')(compiler))
   }
 
   app.use(express.static(outputPath.replace('[hash]', ''), {
