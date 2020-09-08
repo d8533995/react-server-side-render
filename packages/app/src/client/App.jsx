@@ -4,12 +4,11 @@ import React from 'react'
 import Axios from 'axios'
 import routes from './routes'
 import reducers from './reducers'
-import 'antd/dist/antd.css'
 import 'moment/locale/zh-cn'
 
 log.init({
   pid: 'hello_fee',
-  target: 'http://localhost:63457'
+  production: false
 })
 
 Axios.defaults.withCredentials = true

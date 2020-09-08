@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './About.less'
-import styles1 from './Home.less'
+import SwiperCore, { Lazy, Pagination, Zoom } from 'swiper'
+// import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/swiper.less'
+import 'swiper/components/lazy/lazy.less'
+
+SwiperCore.use([Lazy, Pagination, Zoom]);
 // ie9 bug
 (function func (a) {
   a = Object.create(null)
@@ -8,9 +14,5 @@ import styles1 from './Home.less'
 })()
 
 export default function About () {
-  useEffect(() => {
-    c.a = 1
-  }, [])
-
-  return <div className={styles.about}>fdfgrsad</div>
+  return <div className={styles.about}><div className={styles.text}> fdfgrsad</div></div>
 }

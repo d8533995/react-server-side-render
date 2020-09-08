@@ -38,6 +38,10 @@ module.exports = function ({ isBrowser }) {
           keepImport: isBrowser
         }
       ],
+      isBrowser && ['babel-plugin-import', {
+        libraryName: 'antd',
+        style: true
+      }],
       // class { handleClick = () => { } }
       // Enable loose mode to use assignment instead of defineProperty
       // See discussion in https://github.com/facebook/create-react-app/issues/4263

@@ -6,13 +6,11 @@ const scopedNameGenerator = require('../utils/scopedNameGenerator')
 // 优化\最小化js
 const TerserPlugin = require('terser-webpack-plugin')
 // 优化\最小化CSS
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const getbabelConfig = require('./babelConfig')
 const { outputPath, publicPath, outputFileName } = require('./outputConfig')
 
 const devMode = process.env.NODE_ENV === 'development'
-
-global.isBrowser = true
 
 module.exports = {
   entry: {
@@ -58,19 +56,26 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: [
-                require('postcss-import')(),
-                require('autoprefixer')(),
-                require('postcss-nested')(),
-                require('postcss-modules')({
-                  getJSON: () => {},
-                  generateScopedName: scopedNameGenerator()
-                })
-              ]
+              postcssOptions: {
+                plugins: [
+                  'postcss-import',
+                  'autoprefixer',
+                  'postcss-nested',
+                  [
+                    'postcss-modules',
+                    {
+                      getJSON: () => {},
+                      generateScopedName: scopedNameGenerator()
+                    }
+                  ]
+                ]
+              }
             }
           },
-          'less-loader'
+          {
+            loader: 'less-loader',
+            options: { lessOptions: { javascriptEnabled: true } }
+          }
         ]
       },
       {
@@ -78,7 +83,11 @@ module.exports = {
         include: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader'
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: { lessOptions: { javascriptEnabled: true } }
+          }
         ]
       }
       // {
@@ -95,7 +104,7 @@ module.exports = {
   plugins: [
     devMode && new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.ProgressPlugin({}),
+    new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[name].css'
@@ -103,16 +112,18 @@ module.exports = {
     new webpack.DllReferencePlugin({
       manifest: require(path.resolve('dll/dll_manifest.json'))
     }),
-    new webpack.SourceMapDevToolPlugin({
-      append: devMode ? undefined : false,
-      noSources: !devMode,
+    !devMode && new webpack.SourceMapDevToolPlugin({
+      append: false,
+      noSources: true,
       filename: 'sroucemaps/[file].map'
     }),
-    new WebpackPluginHash({})
+    devMode && new webpack.EvalSourceMapDevToolPlugin(),
+    new WebpackPluginHash()
   ].filter(Boolean),
   optimization: {
+    minimize: !devMode,
     minimizer: [
-      !devMode && new TerserPlugin({
+      new TerserPlugin({
         // cache: true,
         // parallel: true,
         sourceMap: true // Must be set to true if using source-maps in production
@@ -120,16 +131,7 @@ module.exports = {
         //   // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
         // }
       }),
-      !devMode && new OptimizeCSSAssetsPlugin({
-        // cssProcessorPluginOptions: {
-        //   preset: ['default', {
-        //     discardComments: {
-        //       removeAll: true
-        //     },
-        //     normalizeUrl: false
-        //   }]
-        // }
-      })
+      new CssMinimizerPlugin()
     ].filter(Boolean),
     splitChunks: {
       cacheGroups: {

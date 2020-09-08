@@ -2,31 +2,86 @@ import rule from './rule'
 import errorTracker from './errorTracker'
 
 let DEFAULT_CONFIG = {
-  target: 'http://localhost:63457',
+  production: true,
   pid: '',
   performance: true, // 页面载入性能, 默认为true
   js_error: true //  是否监控页面报错信息, 默认为true
 }
 
 const JS_TRACKER_ERROR_DISPLAY_MAP = {
-  1: 'JS_RUNTIME_ERROR',
-  2: 'SCRIPT_LOAD_ERROR',
-  3: 'CSS_LOAD_ERROR',
-  4: 'IMAGE_LOAD_ERROR',
-  5: 'AUDIO_LOAD_ERROR',
-  6: 'VIDEO_LOAD_ERROR',
-  7: 'CONSOLE_ERROR',
-  8: 'TRY_CATCH_ERROR',
-  9: 'PROMISE_ERROR'
+  1: 'js运行错误',
+  2: 'js加载错误',
+  3: 'css加载错误',
+  4: '图片加载错误',
+  5: '音频加载错误',
+  6: '视频加载错误',
+  7: 'console打印错误',
+  8: 'tryCatch错误',
+  9: 'Promise错误'
 }
 
-var report = function (errorLogList = []) {
+const detailAdapter = (code, data = {}) => {
+  const detail = { ...data }
+  const dbDetail = {
+    error_no: '',
+    http_code: '',
+    during_ms: '',
+    url: '',
+    request_size_b: '',
+    response_size_b: ''
+  }
+  // 查找rule
+  const ruleItem = rule[code]
+  if (ruleItem) {
+    const d = { ...dbDetail }
+    const fields = Object.keys(detail)
+    fields.forEach((field) => {
+      const transferField = ruleItem.dft[field]
+      // 需要字段转换
+      if (transferField) {
+        // 需要字段转换
+        d[transferField] = detail[field]
+        delete detail[field]
+      } else {
+        d[field] = detail[field]
+      }
+    })
+    return d
+  }
+  return detail
+}
+
+/**
+ *
+ * @param {类型} type
+ * @param {code码} code
+ * @param {消费数据} detail
+ * @param {展示数据} extra
+ */
+function log (type = '', code, detail = {}, extra = {}) {
+  const logInfo = {
+    type,
+    code,
+    detail: detailAdapter(code, detail),
+    extra,
+    common: {
+      pid: DEFAULT_CONFIG.pid,
+      timestamp: Date.now(),
+      page_type: window.location.href
+    }
+  }
+  const img = new window.Image()
+  const target = DEFAULT_CONFIG.production ? 'https://statis.esf.fangdd.com' : 'https://statis.esf.fangdd.net'
+  img.src = `${target}/monitor?d=${encodeURIComponent(JSON.stringify(logInfo))}`
+}
+
+const report = function (errorLogList = []) {
   for (const errorLog of errorLogList) {
     const { type, desc, stack } = errorLog
 
-    const errorName = '页面报错_' + JS_TRACKER_ERROR_DISPLAY_MAP[type]
+    const errorName = JS_TRACKER_ERROR_DISPLAY_MAP[type]
 
-    const location = window.location
+    const { location } = window
 
     log('error', 7, {
       error_no: errorName,
@@ -67,69 +122,9 @@ log.init = (opts) => {
   })
 }
 
-const detailAdapter = (code, detail = {}) => {
-  const dbDetail = {
-    error_no: '',
-    http_code: '',
-    during_ms: '',
-    url: '',
-    request_size_b: '',
-    response_size_b: ''
-  }
-  // 查找rule
-  const ruleItem = rule[code]
-  if (ruleItem) {
-    const d = { ...dbDetail }
-    const fields = Object.keys(detail)
-    fields.forEach(field => {
-      const transferField = ruleItem.dft[field]
-      // 需要字段转换
-      if (transferField) {
-      // 需要字段转换
-        d[transferField] = detail[field]
-        delete detail[field]
-      } else {
-        d[field] = detail[field]
-      }
-    })
-    return d
-  } else {
-    return detail
-  }
-}
-
-/**
- *
- * @param {类型} type
- * @param {code码} code
- * @param {消费数据} detail
- * @param {展示数据} extra
- */
-function log (type = '', code, detail = {}, extra = {}) {
-  const logInfo = {
-    type,
-    code,
-    detail: detailAdapter(code, detail),
-    extra: extra,
-    common: {
-      pid: DEFAULT_CONFIG.pid,
-      timestamp: Date.now(),
-      page_type: window.location.href
-    }
-  }
-  const img = new window.Image()
-  img.src = `${DEFAULT_CONFIG.target}/monitor?d=${encodeURIComponent(JSON.stringify(logInfo))}`
-}
-
-log.product = (code, detail, extra) => {
-  return log('product', code, detail, extra)
-}
-log.error = (code, detail, extra) => {
-  return log('error', code, detail, extra)
-}
-log.info = (code, detail, extra) => {
-  return log('info', code, detail, extra)
-}
+log.product = (code, detail, extra) => log('product', code, detail, extra)
+log.error = (code, detail, extra) => log('error', code, detail, extra)
+log.info = (code, detail, extra) => log('info', code, detail, extra)
 
 if (typeof window !== 'undefined') {
   window.dt = log
