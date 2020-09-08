@@ -63,14 +63,7 @@ module.exports = {
         test: /\.(c|le)ss$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              esModule: true,
-              hmr: devMode,
-              reloadAll: true
-            }
-          },
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -134,19 +127,18 @@ module.exports = {
       new CssMinimizerPlugin()
     ].filter(Boolean),
     splitChunks: {
-      chunks: 'async',
       cacheGroups: {
+        // Extracting all CSS in a single file
         vendor: {
-          test: /[\\/]node_modules[\\/]/,
+          test: /node_modules.*js$/,
           chunks: 'async',
           name: 'vendor',
           maxSize: 1000000
         },
-        // Extracting all CSS in a single file
         styles: {
           name: 'styles',
           test: /\.css$|\.less$/,
-          chunks: 'async',
+          chunks: 'all',
           enforce: true
         }
       }
