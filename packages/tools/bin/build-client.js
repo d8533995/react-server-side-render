@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 
 const { program } = require('commander')
 const webpack = require('webpack')

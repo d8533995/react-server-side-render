@@ -30,6 +30,25 @@ module.exports = {
   },
   mode: devMode ? 'development' : 'production',
   devtool: false,
+  plugins: [
+    devMode && new webpack.HotModuleReplacementPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.ProgressPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      ignoreOrder: true
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: require(path.resolve('dll/dll_manifest.json'))
+    }),
+    !devMode && new webpack.SourceMapDevToolPlugin({
+      append: false,
+      noSources: true,
+      filename: 'sroucemaps/[file].map'
+    }),
+    devMode && new webpack.EvalSourceMapDevToolPlugin(),
+    new WebpackPluginHash()
+  ].filter(Boolean),
   module: {
     rules: [
       {
@@ -101,25 +120,6 @@ module.exports = {
       // }
     ]
   },
-  plugins: [
-    devMode && new webpack.HotModuleReplacementPlugin(),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.ProgressPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[name].css'
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require(path.resolve('dll/dll_manifest.json'))
-    }),
-    !devMode && new webpack.SourceMapDevToolPlugin({
-      append: false,
-      noSources: true,
-      filename: 'sroucemaps/[file].map'
-    }),
-    devMode && new webpack.EvalSourceMapDevToolPlugin(),
-    new WebpackPluginHash()
-  ].filter(Boolean),
   optimization: {
     minimize: !devMode,
     minimizer: [
@@ -134,6 +134,7 @@ module.exports = {
       new CssMinimizerPlugin()
     ].filter(Boolean),
     splitChunks: {
+      chunks: 'async',
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
@@ -145,7 +146,7 @@ module.exports = {
         styles: {
           name: 'styles',
           test: /\.css$|\.less$/,
-          chunks: 'all',
+          chunks: 'async',
           enforce: true
         }
       }

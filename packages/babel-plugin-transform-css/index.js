@@ -21,27 +21,31 @@ module.exports = function babelPlugin (babel, opts) {
 
   return {
     visitor: {
-      ImportDefaultSpecifier (nodePath, { file }) {
-        const { value } = nodePath.parent.source
+      ImportDeclaration (nodePath, { filename }) {
+        const { node } = nodePath
+        const { value } = node.source
         if (extensions.indexOf(path.extname(value)) > -1) {
-          const filename = path.resolve(path.dirname(file.opts.filename), value)
-          const css = readFileSync(filename, 'utf8')
-          const plugins = [].concat(
-            new Values(),
-            new LocalByDefault(),
-            new ExtractImports(),
-            new Scope({ generateScopedName }),
-            new ResolveImports({ resolve: extensions }) // 同步输出插件
-          )
-          const runner = postcss(plugins)
-          const lazyResult = runner.process(css, { from: filename })
-          const tokens = lazyResult.root.exports || {} // 由resolveImport提供
-          const varDeclaration = t.variableDeclaration('const', [t.variableDeclarator(nodePath.node.local, buildClassNameToScopeNameMap(tokens))])
-          nodePath.parentPath.insertBefore(varDeclaration)
+          if (node.specifiers && node.specifiers.length && node.specifiers[0].type === 'ImportDefaultSpecifier') {
+            const local = node.specifiers[0].local
+            const sourcePath = path.join(path.dirname(filename), value)
+            const css = readFileSync(sourcePath, 'utf8')
+            const plugins = [
+              new Values(),
+              new LocalByDefault(),
+              new ExtractImports(),
+              new Scope({ generateScopedName }),
+              new ResolveImports({ resolve: extensions }) // 同步输出插件
+            ]
+            const runner = postcss(plugins)
+            const lazyResult = runner.process(css, { from: sourcePath })
+            const tokens = lazyResult.root.exports || {} // 由resolveImport提供
+            const varDeclaration = t.variableDeclaration('const', [t.variableDeclarator(local, buildClassNameToScopeNameMap(tokens))])
+            nodePath.insertBefore(varDeclaration)
+          }
           if (keepImport) {
-            nodePath.parentPath.node.specifiers = []
+            node.specifiers = []
           } else {
-            nodePath.parentPath.remove()
+            nodePath.remove()
           }
         }
       }
