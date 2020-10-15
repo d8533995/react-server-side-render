@@ -5,7 +5,7 @@ import Axios from 'axios'
 import routes from './routes'
 import reducers from './reducers'
 import 'moment/locale/zh-cn'
-
+const a = 1;
 log.init({
   pid: 'hello_fee',
   production: false
@@ -14,11 +14,11 @@ log.init({
 Axios.defaults.withCredentials = true
 
 class App extends React.Component {
-  componentDidMount () {
+  componentDidMount() {
     // Promise.reject(Error('错误'))
   }
 
-  render () {
+  render() {
     return this.props.children
   }
 }
